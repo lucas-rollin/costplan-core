@@ -1,0 +1,40 @@
+{% extends "budgeting/layout.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+
+  <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo-login">
+
+  <div class="login">
+
+    <form class="login-form" action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div class="form-floating">
+        <input autofocus class="form-control" type="text" name="username" placeholder="Usuário" required>
+        <label>Usuário</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" type="password" name="password" placeholder="Senha" required>
+        <label>Senha</label>
+      </div>
+      {% if message %}
+        <div class="alert alert-warning" role="alert">{{ message }}</div>
+      {% endif %}
+
+      <button class="btn btn-primary center" type="submit">
+        <span class="d-flex align-items-center gap-3">Login<i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></span>
+      </button>
+      
+    </form>
+
+  </div>
+
+  <div class="center">
+  Esqueceu a senha?&nbsp;<a href="{% url 'password_reset' %}">Clique aqui</a>
+  </div>
+
+{% endblock %}

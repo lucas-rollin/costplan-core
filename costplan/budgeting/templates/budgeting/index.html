@@ -1,0 +1,777 @@
+{% extends "budgeting/layout.html" %}
+{% load static %}
+
+{% block title %}
+Página Principal
+{% endblock %}
+
+{% block body %}
+  <div id="content" class="d-flex">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <ul>
+        <li>
+          <span class="logo-sm"></span>
+          <button id="toggle-btn" type="button" aria-label="sidebar toggle button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z"/></svg>
+          </button>
+        </li>
+        <li>
+          <a id="registration-button" class="page-button" href="#registration">
+            <div><i class="fa-solid fa-fw fa-file-pen fs-5"></i></div>
+            <span>Cadastro da Obra</span>
+          </a>
+        </li>
+        <li>
+          <a id="cost-breakdown-sheet-button" class="page-button" href="#cost-breakdown-sheet">
+            <div><i class="fa-solid fa-fw fa-helmet-safety fs-5"></i></div>
+            <span>PPU</span>
+          </a>
+        </li>
+        <li>
+          <a id="bdi-button" class="page-button" href="#bdi">
+            <div><i class="fa-solid fa-fw fa-percent fs-5"></i></div>
+            <span>BDI</span>
+          </a>
+        </li>
+        <li>
+          <a id="charges-button" class="page-button" href="#charges">
+            <div><i class="fa-solid fa-fw fa-scroll fs-5"></i></div>
+            <span>Encargos</span>
+          </a>
+        </li>
+        <li>
+          <button id="cc-dropdown-btn" type="button" class="dropdown-btn" aria-label="Cost Composition dropdown button">
+            <div><i class="fa-solid fa-fw fa-hammer fs-5"></i></div>
+            <span>CPU</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z"/></svg>
+          </button>
+          <div class="sub-menu">
+            <div>
+              <ul>
+                <li><a id="cost-composition-button" class="nav-link page-button" href="#cost-composition">Busca</a></li>
+                <li><a id="cost-composition-all-button" class="nav-link page-button" href="#cost-composition-all">Todos</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <button id="resource-dropdown-btn" type="button" class="dropdown-btn" aria-label="Resource dropdown button">
+            <div><i class="fa-solid fa-fw fa-gears fs-5"></i></div>
+            <span>Recursos</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z"/></svg>
+          </button>
+          <div class="sub-menu">
+            <div>
+              <ul>
+                <li><a id="material-button" class="nav-link page-button" href="#material">Material</a></li>
+                <li><a id="labor-button" class="nav-link page-button" href="#labor">Mão de Obra</a></li>
+                <li><a id="service-button" class="nav-link page-button" href="#service">Serviço</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a id="generate-pdf" class="nav-link" data-url="{% url 'report' project_id=project.pk %}">
+            <div><i class="fa-solid fa-fw fa-file-export fs-5"></i></div>
+            <span>Relatório</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="flex-grow-1">
+      <!-- Header -->
+      <div id="header" class="row align-items-center text-center">
+      
+        <!-- Logo -->
+        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
+          <a href="{% url 'project' %}">
+            <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo-index">
+          </a>
+        </div>
+
+        
+        
+        <!-- User Info and Buttons -->
+        <div class="col-12 col-md-6 user-btn d-flex flex-column align-items-center align-items-md-end gap-3">
+          
+          <!-- Username and Logout -->
+          <div class="d-flex align-items-center gap-3 user-info">
+            <div class="fs-5 mb-0 username">{{ user.username }}</div>
+            <a href="logout" class="logout-link d-flex align-items-center">
+              Sair <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div id="registration" class="page">
+        <div class="d-flex w-100 flex-column gap-3">
+          <div class="d-flex w-100 bg-gray rounded border">
+            <div class="fs-3 mx-auto">Cadastro Inicial da Obra</div>
+          </div>
+          <div class="d-flex w-100 bg-gray rounded border">
+            <div class="fs-4 mx-auto">Informações Cadastrais e Técnicas da Obra</div>
+          </div>
+          <form id="registration-form" class="d-flex flex-column w-100 gap-4">
+            <div class="row">
+              <div class="col-3">
+                <label for="notice" class="form-label">Edital</label>
+                <input type="text" class="form-control rounded" name="notice" autocomplete="off" value="{{ project.notice }}" required/>
+              </div>
+              <div class="col-6">
+                <label for="name" class="form-label">Objeto contratual</label>
+                <input type="text" class="form-control rounded" name="name" autocomplete="off" value="{{ project.name }}" required>
+              </div>
+              <div class="col-3">
+                <label for="date" class="form-label">Data</label>
+                <input id="project-date" type="date" class="form-control rounded" name="date" autocomplete="off" value="{{ project.date|date:'Y-m-d' }}" required/>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="col-9">
+                <label for="type" class="form-label">Tipo de Obra</label>
+                <select class="form-select rounded" aria-label="Default select example" name="type">
+                  <option value="" {% if not project.type %}disabled selected{% endif %}>Selecione o tipo de obra</option>
+                    {% for value, display in project.PROJECT_TYPE_CHOICES %}
+                      <option value="{{ value }}" {% if project.type == value %}selected{% endif %}>
+                        {{ display }}
+                      </option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="col-3">
+                <label for="template" class="form-label">Template Base</label>
+                <select id="template-select" class="form-select rounded template-select" aria-label="Default select example" name="template">
+                    {% for item in template %}
+                      <option value="{{ item.pk }}" {% if project.template and project.template.pk == item.pk %}selected{% endif %}>
+                        {{ item.name }}
+                      </option>
+                    {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="execution_regime" class="form-label">Regime de Execução</label>
+                <input type="text" class="form-control rounded" value="{% if project.execution_regime %}{{ project.execution_regime}}{% endif %}" name="execution_regime" autocomplete="off"/>
+              </div>
+        
+              <div class="col-6">
+                <label for="requesting_area" class="form-label">Área Requisitante</label>
+                <input type="text" class="form-control rounded" value="{% if project.requesting_area %}{{ project.requesting_area}}{% endif %}" name="requesting_area" autocomplete="off"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label for="contract_term" class="form-label">Vigência do Contrato (dias)</label>
+                <input type="text" class="form-control rounded" value="{% if project.contract_term %}{{ project.contract_term}}{% else %}0{% endif %}" name="contract_term" autocomplete="off"/>
+              </div>
+              <div class="col-4">
+                <label for="execution_term" class="form-label">Prazo de Execução (dias)</label>
+                <input type="text" class="form-control rounded" value="{% if project.execution_term %}{{ project.execution_term}}{% else %}0{% endif %}" name="execution_term" autocomplete="off"/>
+              </div>
+              <div class="col-4">
+                <label for="mobilization_term" class="form-label">Prazo de Mobilização (dias)</label>
+                <input type="text" class="form-control rounded" value="{% if project.mobilization_term %}{{ project.mobilization_term}}{% else %}0{% endif %}" name="mobilization_term" autocomplete="off"/>
+              </div>
+            </div>
+            <div class="button-container">
+              <button type="submit" class="btn btn-primary save-btn">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div id="cost-breakdown-sheet" class="page">
+        <table class="table mb">
+          <thead class="bg-gray">
+            <tr>
+              <th class="fs-3 fw-normal">Planilha de Preços Unitários</th>
+            </tr>
+          </thead>
+        </table>
+
+        <form id="cost-breakdown-sheet-form">
+          <table class="table table-striped-even">
+            <colgroup>
+              <col style="width: 8%;">
+              <col style="width: 54%;">
+              <col style="width: 8%;"> 
+              <col style="width: 10%;">
+              <col style="width: 10%;">
+              <col style="width: 10%;">
+            </colgroup>
+            <thead class="table-header">
+              <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>UN.</th>
+                <th>Quantidade</th>
+                <th>Preço Unit. (R$)</th>
+                <th>Preço Total (R$)</th>
+              </tr>
+            </thead>
+            <tbody id="cost-breakdown-sheet-tbody">
+              {% for item in cbs %}
+              <tr>
+                <td {% if item.is_leaf %}class="cbs-id"{% endif %}>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.unit }}</td>
+                {% if item.is_leaf %}
+                <td class="input">
+                  <input type="text" class="form-control" name="{{ item.id }}" value="0,00" aria-label="Quantidade de {{ item.name }} (ID: {{ item.id }})">
+                </td>
+                <td>0,00</td>
+                <td>0,00</td>
+                {% else %}
+                <td></td>
+                <td></td>
+                <td></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-end gap-2 mb-3">
+
+            <strong class="fs-5">Total</strong>
+            <div id="total-cost-display" class="fs-5 bg-gray rounded col-3 text-center">R$ 0,00</div>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="btn btn-primary save-btn mt-2">
+              Calcular e Salvar
+            </button>
+          </div>
+        </form>
+
+        <div class="d-flex flex-column gap-3 mt-3">
+          <h4 class="d-flex">Informações</h4>
+          <ol class="d-flex flex-column gap-3">
+            <li class="fs-6">
+              AS QUANTIDADES DE SERVIÇOS CONSTANTES DA PLANILHA DE PREÇOS UNITÁRIOS
+              SÃO ESTIMADAS, PODENDO, POR CONSEGUINTE, OCORRER UMA VARIAÇÃO PARA MAIS
+              OU PARA MENOS, EM FUNÇÃO DAS NEGOCIAÇÕES COMERCIAIS DOS CONTRATOS DE
+              FORNECIMENTO DE GÁS, SEM QUE CAIBA AO CONTRATADO O DIREITO A QUALQUER
+              RECLAMAÇÃO, INDENIZAÇÃO OU DE SOLICITAR ALTERAÇÃO DOS PREÇOS UNITÁRIOS
+              PROPOSTOS, NOS TERMOS DO § 1º DO ART. 65 DA LEI 8.666/93.
+            </li>
+            <li class="fs-6">
+              TODOS OS CUSTOS REFERENTES A QUAISQUER SERVIÇOS OU MATERIAIS NECESSÁRIOS
+              A CONSTRUÇÃO, MONTAGEM E PRÉ-OPERAÇÃO DOS RAMAIS, CITADOS NO MEMORIAL
+              DESCRITIVO, DESENHOS, ESPECIFICAÇÕES, E NOS DEMAIS DOCUMENTOS QUE FAZEM
+              PARTE DESTE CONTRATO, QUE POR VENTURA NÃO CONSTEM ESPECIFICAMENTE NESTA
+              PLANILHA, DEVERÃO ESTAR PREVISTOS NO ITEM 4 DESTA PPU.
+            </li>
+            <li class="fs-6">
+              PARA O PROJETO EXECUTIVO COMPLEMENTAR E SONDAGEM GEOFÍSICA DOS RAMAIS DE
+              SATURAÇÃO, AS EXTENSÕES SERÃO ENQUADRADAS NA PPU CONSIDERANDO-SE OS
+              VALORES EM CASCATA, ISTO É, OS "INTERVALOS DE EXTENSÃO" SERÃO
+              MULTIPLICADOS PELOS PREÇOS UNITÁRIOS CORRESPONDENTES A CADA SUB-ITEM
+              (1.1.1 E 1.1.2 PARA O PRIMEIRO E 1.2.1 E 1.2.2 PARA O SEGUNDO). Exemplo:
+              Projetos com extensão até 100 m, serão medidos nos itens 1.1.1 e 1.2.1
+              (se aplicável). Projetos com extensão maior que 100 m (ex. 1.000m),
+              serão medidos 1 (unidade = 100m) nos itens 1.1.1 e 1.2.1 (se aplicável)
+              e o excedente a 900 m será medido nos itens 1.1.2 e 1.2.2 (se
+              aplicável).
+            </li>
+            <li class="fs-6">
+              PARA O ESTUDO DE INTERFERÊNCIA ELÉTRICA, AS EXTENSÕES SERÃO ENQUADRADAS
+              NA PPU CONSIDERANDO-SE OS VALORES EM CASCATA, ISTO É, OS "INTERVALOS DE
+              EXTENSÃO" SERÃO MULTIPLICADOS PELOS PREÇOS UNITÁRIOS CORRESPONDENTES A
+              CADA SUB-ITEM (1.4.3 PARA O PRIMEIRO E 1.4.4 PARA O SEGUNDO). Exemplo:
+              Projetos com extensão até 20 km, serão medidos no item 1.4.3. Projetos
+              com extensão maior que 20 km (ex. 21 km), serão medidos 1 (unidade = 20
+              km) no item 1.4.3 e o excedente a 1 km será medido no item 1.4.4. O
+              mesmo critério se aplica ao item 14.5 - PROJETO DE SISTEMA DE PROTEÇÃO
+              CATÓDICA.
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div id="histogram" class="page">
+      </div>
+
+      <div id="schedule" class="page">
+      </div>
+
+      <div id="bdi" class="page">
+        <table class="table mb">
+          <thead class="bg-gray">
+            <tr>
+              <th class="fs-3 fw-normal">Benefícios e Despesas Indiretas</th>
+            </tr>
+          </thead>
+        </table>
+        <form id="bdi-form">
+        <table class="table">
+          <colgroup>
+            <col style="width: 8%;"> <!-- Item -->
+            <col style="width: 78%;"> <!-- Descrição -->
+            <col style="width: 14%;"> <!-- taxa -->
+          </colgroup>
+          <thead class="table-header">
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Taxa (%)</th>
+            </tr>
+          </thead>
+          <tbody id="bdi-table-body">
+            <tr>
+              <td rowspan="9">1</td>
+              <td colspan="2" class="bg-gray-i text-start">AC - ADMINISTRAÇÃO CENTRAL</td>
+            </tr>
+            <tr>
+              <td class="text-start">Mão de Obra Indireta (Administração, Financeiro, RH, Almoxarifado, Compras, etc...)</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.1" value="0,7" aria-label="Taxa (%) de item (ID: 1.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Alimentação Pessoal da Sede</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.2" value="0,5" aria-label="Taxa (%) de item (ID: 1.2)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Transporte de pessoal (Vale Transporte)</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.3" value="0,8" aria-label="Taxa (%) de item (ID: 1.3)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Medicina e Segurança do Trabalho</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.4" value="0,3" aria-label="Taxa (%) de item (ID: 1.4)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Seguros Acidentes Pessoais</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.5" value="0,4" aria-label="Taxa (%) de item (ID: 1.5)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Água, Energia, Telefone, Internet e Condomínio</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.6" value="0,7" aria-label="Taxa (%) de item (ID: 1.6)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Manutenção de veículos leves e pequenos equipamentos</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.7" value="1,1" aria-label="Taxa (%) de item (ID: 1.7)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">Viagens de Supervisão, Inspeções de Campo e outras</td>
+              <td class="input">
+                <input type="text" class="form-control" name="1.8" value="0,5" aria-label="Taxa (%) de item (ID: 1.8)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">1 - Total Administração Central</td>
+              <td id="bdi-1" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">2</td>
+              <td colspan="2" class="bg-gray-i">S - SEGUROS</td>
+            </tr>
+            <tr>
+              <td class="text-start">Escritório Central</td>
+              <td class="input">
+                <input type="text" class="form-control" name="2.1" value="0,7" aria-label="Taxa (%) de item (ID: 2.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">2 - Total de Seguros</td>
+              <td id="bdi-2" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">3</td>
+              <td colspan="2" class="bg-gray-i">R - RISCOS</td>
+            </tr>
+            <tr>
+              <td class="text-start">Riscos relacionados a sede</td>
+              <td class="input">
+                <input type="text" class="form-control" name="3.1" value="1,0" aria-label="Taxa (%) de item (ID: 3.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">3 - Total de Riscos</td>
+              <td id="bdi-3" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">4</td>
+              <td colspan="2" class="bg-gray-i">G - GARANTIAS</td>
+            </tr>
+            <tr>
+              <td class="text-start">Escritório Central</td>
+              <td class="input">
+                <input type="text" class="form-control" name="4.1" value="1,5" aria-label="Taxa (%) de item (ID: 4.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">4 - Total de Garantias</td>
+              <td id="bdi-4" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">5</td>
+              <td colspan="2" class="bg-gray-i">DF - DESPESAS FINANCEIRAS</td>
+            </tr>
+            <tr>
+              <td class="text-start">Despesas com Compras / Comercialização</td>
+              <td class="input">
+                <input type="text" class="form-control" name="5.1" value="1,0" aria-label="Taxa (%) de item (ID: 5.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">5 - Total de Despesas Financeiras</td>
+              <td id="bdi-5" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">6</td>
+              <td colspan="2" class="bg-gray-i">BONIFICAÇÃO</td>
+            </tr>
+            <tr>
+              <td class="text-start">L - LUCRO</td>
+              <td class="input">
+                <input type="text" class="form-control" name="6.1" value="10,0" aria-label="Taxa (%) de item (ID: 6.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">6 - Total Bonificação/Lucro</td>
+              <td id="bdi-6" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2" class="fw-bold bg-gray-i">
+                TOTAL PARCIAL SEM ALÍQUOTA DE TRIBUTOS
+              </td>
+              <td id="bdi-partial" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td rowspan="7">7</td>
+              <td colspan="2" class="bg-gray-i">ALÍQUOTA DOS TRIBUTOS INCIDENTES SOBRE O VALOR TOTAL DA OBRA</td>
+            </tr>
+            <tr>
+              <td class="text-start">ISS</td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.1" value="5,0" aria-label="Taxa (%) de item (ID: 7.1)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">PIS</td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.2" value="0,65" aria-label="Taxa (%) de item (ID: 7.2)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">CONFINS</td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.3" value="3,0" aria-label="Taxa (%) de item (ID: 7.3)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">CSLL - Contribuição Social&nbsp;<span class="text-danger">(aplicar 9% sobre 32% do faturamento, quando não optante do Simples)</span></td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.4" value="2,88" aria-label="Taxa (%) de item (ID: 7.4)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">IRRF&nbsp;<span class="text-danger">(aplicar 15% sobre 32% do faturamento, quando não optante do Simples)</span></td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.5" value="2,88" aria-label="Taxa (%) de item (ID: 7.5)">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-start">SIMPLES&nbsp;<span class="text-danger">(para optante do Simples aplicar 8,65% e zerar os impostos CSLL e IRRF)</span></td>
+              <td class="input">
+                <input type="text" class="form-control" name="7.6" value="2,88" aria-label="Taxa (%) de item (ID: 7.6)">
+              </td>
+            </tr>
+            <tr>
+              <td class="border-0"></td>
+              <td class="border-0 text-end fw-bold">7 - Total da Alíquota de Tributos</td>
+              <td id="bdi-7" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2" class="fw-bold bg-gray-i">
+                CÁLCULO BDI
+              </td>
+              <td id="bdi-total" class="fw-bold bg-gray-i"></td>
+            </tr>
+
+          </tbody>
+        </table>
+        
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary save-btn tb">
+            Salvar
+          </button>
+        </div>
+        </form>
+        
+
+        <div class="d-flex flex-column gap-3 mt-3">
+          <h4 class="d-flex">Nota</h4>
+            <p>I) É IMPORTANTE QUE ESSE DEMONSTRATIVO SEJA O MAIS DETALHADO POSSÍVEL, CONFORME LEI 13.303/2016 ARTIGO 42 §2º INCISO I.</p>
+            <p>II) BDI CONFORMEA LEI 13303/2016 - ARTIGO 69 §2º.</p>
+            <p>III) FORMULA DO BDI CONFORME ACÓRDÃO TCU 2622/2013:</p>
+            <img id="bdi-formula" src="{% static 'budgeting/img/bdi-formula.svg' %}" alt="BDI formula">
+            <p>IV) ADOTADO COMO PADRÃO PARA CALCULO DE ENCARGO A TABELA SINAPI, CONFORME DESCRITO NA LEI 13.303/2016 - ARTIGO 31 §2º</p>
+            <p>V) RESERVA TÉCNICA CONFORME DESCRITO ACORDÃO 205/2018 TCU ITEM 9.4:</p>
+            <p>9.4. determinar ao Ministério do Planejamento, Desenvolvimento e Gestão e aos demais Órgãos Governantes Superiores - OGS, bem assim às Casas do Poder Legislativo Federal, que instruam os órgãos e entidades da esfera de suas atuações no sentido da inclusão do item “reserva técnica” nas planilhas de custos e formação de preços das empresas prestadoras de serviços terceirizados somente é admitida se houver justificativa prévia e expressa dos custos correspondentes que serão cobertos por esse item.</p>
+            <p>VI) Atendimento ao Decreto 9507/2018 - Art 4º, Art8º inciso VII alinea A:</p>
+            <p>a) que os valores destinados ao pagamento de férias, décimo terceiro salário, ausências legais e verbas rescisórias dos empregados da contratada que participarem da execução dos serviços contratados serão efetuados pela contratante à contratada somente na ocorrência do fato gerador;</p>
+        </div>
+      </div>
+
+      <div id="charges" class="page">
+        <table class="table mb">
+          <thead class="bg-gray">
+            <tr>
+              <th class="fs-3 fw-normal">Encargos sobre a Mão de Obra</th>
+            </tr>
+            <tr>
+              <th class="fs-4 fw-normal">(mensalista - Sem desoneração)</th>
+            </tr>
+          </thead>
+        </table>
+        <form id="charges-form">
+        <table class="table">
+          <colgroup>
+            <col style="width: 85%;"> <!-- Descrição -->
+            <col style="width: 15%;"> <!-- taxa -->
+          </colgroup>
+          <thead class="table-header">
+            <tr>
+              <th>Descrição</th>
+              <th>Taxa (%)</th>
+            </tr>
+          </thead>
+          <tbody id="charges-table-body">
+            {% for category, data in charges.items %}
+              <!-- Category Header Row -->
+              <tr class="bg-gray fw-bold">
+                <td>SUBTOTAL GRUPO {{ category }}</td>
+                <td id="charges-group-{{category}}">{{ data.total|floatformat:2 }}</td>
+              </tr>
+              <!-- Charges in the Category -->
+              {% for item in data.charges %}
+                <tr>
+                  <td>{{ item.charge_item.description }}</td>
+                  <td class="input">
+                    <input type="text" class="form-control" name="{{item.charge_item.id}}" value="{{ item.rate|floatformat:2 }}" aria-label="Taxa (%) de item (ID: {{item.id}})"/>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endfor %}
+            <!-- Grand Total Row -->
+            <tr class="bg-gray fw-bold">
+              <td>TOTAL</td>
+              <td id="charges-total">{{ charges_total|floatformat:2 }}</td>
+            </tr>
+          </tbody>
+        
+        </table>
+        
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary save-btn tb">
+            Salvar
+          </button>
+        </div>
+        </form>
+
+        <div class="mt-3">
+          <h4 class="d-flex">Nota</h4>
+            <p><strong>1) Horista:</strong>&nbsp;Recebe por horas trabalhadas, todavia, o valor da hora não poderá ser menor que o valor da hora do salário-mínimo vigente no país ou do piso salarial da categoria.</p>
+            <p><strong>2) Mensalista:</strong>&nbsp;Tem o seu salário fixo, não sofrendo alterações no mês, independentemente da quantidade de dias do mês, além disso, o descanso semanal remunerado já se encontra incluído no salário mensal, não sendo calculado separadamente como no caso do horista.</p>
+            <p><strong>3) Desonerado:</strong>&nbsp;Quando os custos de mão de obra não possuem encargos sociais referentes a contribuição de 20% de INSS sobre o salário.</p>
+            <p><strong>4) Não desonerado:</strong>&nbsp;Auando os custos de mão de obra possuem encargos sociais referentes a contribuição de 20% de INSS sobre o salário.</p>
+            <p class="fw-bold">DEFINIÇÕES:</p>
+            <p><strong>Horista:</strong>&nbsp;Recebe por horas trabalhadas, todavia, o valor da hora não poderá ser menor que o valor da hora do salário-mínimo vigente no país ou do piso salarial da categoria.</p>
+            <p><strong>Mensalista:</strong>&nbsp;Tem o seu salário fixo, não sofrendo alterações no mês, independentemente da quantidade de dias do mês, além disso, o descanso semanal remunerado já se encontra incluído no salário mensal, não sendo calculado separadamente como no caso do horista.</p>
+            <p><strong>Sem desonerado:</strong>&nbsp;Quando os custos de mão de obra possuem encargos sociais referentes a contribuição de 20% de INSS sobre o salário.</p>
+        </div>
+
+      </div>
+
+      <div id="cost-composition" class="page">
+        <div class="d-flex w-100 flex-column gap-3">
+          <div class="d-flex w-100 bg-gray rounded border">
+            <div class="fs-3 mx-auto">Composição de Custos Unitários</div>
+          </div>
+          <form id="cost-composition-form" class="d-flex flex-column w-100 gap-4">
+            <div class="row">
+              <div class="col-6">
+                <label for="template" class="form-label">Template</label>
+                <select class="form-select rounded template-select" aria-label="Default select example" name="template" required>
+                    {% for item in template %}
+                      <option value="{{ item.pk }}" {% if project.template == item %}selected{% endif %}>
+                        {{ item.name }}
+                      </option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="col-6">
+                <label  for="composition" class="form-label">Código da Composição</label>
+                <select class="form-select rounded" aria-label="Default select example" name="composition" required>
+                  <option value="" disabled selected>Selecione uma Composição</option>
+                    {% for item in cbs %}
+                      {% if item.is_leaf %}
+                        <option value="{{ item.id }}">
+                          {{ item.id }}
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="button-container space">
+              <button type="button" class="btn btn-primary save-btn" data-bs-toggle="modal" data-bs-target="#new-template">
+                Novo Template
+              </button>
+              <button type="submit" class="btn btn-primary save-btn">
+                Buscar
+              </button>
+            </div>
+          </form>
+
+          <table id="cost-composition-header-table" class="table d-none">
+            <colgroup>
+              <col style="width: 58%;">
+              <col style="width: 14%;">
+              <col style="width: 14%;">
+              <col style="width: 14%;">
+            </colgroup>
+            <thead class="table-header">
+              <tr>
+                <th>Descrição dos Serviços</th>
+                <th>Unidade</th>
+                <th>Quantidade</th>
+                <th>Item da PPU</th>
+              </tr>
+            </thead>
+            <tbody id="cost-composition-header-tbody">
+            </tbody>
+          </table>
+
+          <form id="cost-composition-edit-form">
+            <table id="cost-composition-table" class="table d-none">
+              <colgroup>
+                <col style="width: 8%;">
+                <col style="width: 42%;">
+                <col style="width: 8%;">
+                <col style="width: 10%;">
+                <col style="width: 10%;">
+                <col style="width: 10%;">
+                <col style="width: 12%;">
+              </colgroup>
+              <thead class="table-header">
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>UN</th>
+                  <th>Quantidade</th>
+                  <th>Custo Unitário (R$)</th>
+                  <th>Quantidade Total</th>
+                  <th>Custo Total (R$)</th>
+                </tr>
+              </thead>
+              <tbody id="cost-composition-tbody">
+              </tbody>
+            </table>
+            <div id="cost-composition-edit-button" class="button-container d-none">
+              <button type="submit" class="btn btn-primary save-btn">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="cost-composition-all" class="page">
+        <nav aria-label="Page navigation example">
+          <ul id="nav-paginator" class="pagination justify-content-center">
+          </ul>
+        </nav>
+
+        <div id="cost-composition-all-content">
+        </div>
+      </div>
+
+      <div id="material" class="page">
+      </div>
+
+      <div id="labor" class="page">
+      </div>
+
+      <div id="service" class="page">
+      </div>
+
+    </main>
+
+    <div class="modal fade" id="new-template" tabindex="-1" aria-labelledby="newTemplateModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form id="new-project-form" class="modal-content" action="/template" method="POST">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="newTemplateModalLabel">Criação de Template</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="name" class="mt-2">Nome</label>
+            <input type="text" class="form-control rounded" name="name">
+            <label for="base-template" class="mt-2">Template Base</label>
+            <select class="form-select rounded template-select" aria-label="Default select example" name="base-template">
+                {% for item in template %}
+                  <option value="{{ item.pk }}" {% if project.type == item %}selected{% endif %}>
+                    {{ item.name }}
+                  </option>
+                {% endfor %}
+            </select>
+            <label for="description" class="mt-2">Descrição</label>
+            <textarea class="form-control" name="description"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Criar obra</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+{% endblock %}
+
+{% block print %}
+<div id="print-area" class="d-none"></div>
+{% endblock %}
+
+{% block script %}
+<script type="module" src="{% static 'budgeting/js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+{% endblock %}

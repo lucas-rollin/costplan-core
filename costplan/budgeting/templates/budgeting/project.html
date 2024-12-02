@@ -1,0 +1,123 @@
+{% extends "budgeting/layout.html" %}
+{% load static %}
+
+{% block title %}
+Projetos
+{% endblock %}
+
+{% block body %}
+
+<section id="project-section" class="w-100 d-flex flex-column gap-4">
+
+  <!-- Header with Logo, User Info, and Logout -->
+  <div class="row header-section align-items-center text-center text-md-start">
+    
+    <!-- Logo -->
+    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
+      <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo-project">
+    </div>
+    
+    <!-- User Info and Buttons -->
+    <div class="col-12 col-md-6 user-btn d-flex flex-column align-items-center align-items-md-end gap-3">
+      
+      <!-- Username and Logout -->
+      <div class="d-flex align-items-center gap-3 user-info">
+        <p class="fs-5 mb-0 username">{{ user.username }}</p>
+        <a href="logout" class="logout-link d-flex align-items-center">
+          Sair <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </a>
+      </div>
+
+      <!-- Project Creation Button -->
+      <button type="button" class="btn btn-primary create-project-btn" data-bs-toggle="modal" data-bs-target="#new-project">
+        Nova Obra
+      </button>
+    </div>
+
+  {% if message %}
+    <div>{{ message }}</div>
+  {% endif %}
+  
+    <div id="project-table" class="d-flex flex-column text-center gap-2 mt-2">
+      <div class="row">
+        <div class="col bg-gray border rounded p-2">
+          <div class="fs-4">RELATÓRIO DAS OBRAS REALIZADAS</div>
+        </div>
+      </div>
+      <div class="row gap-2 bg-gray border rounded py-2">
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">Edital</div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">Nome</div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">Data</div>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+          <div class="fs-5 overflow-hidden">Relatório</div>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+          <div class="fs-5 overflow-hidden">Visualizar</div>
+        </div>
+      </div>
+
+      {% for project in projects %}
+      <div class="row gap-2 border rounded py-2">
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">{{ project.notice }}</div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">{{ project.name }}</div>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="fs-5">{{ project.date|date:"d/m/Y" }}</div>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+          <div class="fs-5 text-danger generate-pdf ptr" data-url="{% url 'report' project_id=project.pk %}">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+          <form action="/" method="POST" class="m-0">
+            {% csrf_token %}
+            <input type="hidden" name="project_id" value="{{ project.pk }}" />
+            <button type="submit" class="btn btn-link p-0 text-dark">
+              <i class="fa-solid fa-pen-to-square fs-5"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    
+    </div>
+  </section>
+  
+  <div class="modal fade" id="new-project" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="new-project-form" class="modal-content" action="/project" method="POST">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ModalLabel">Nova Obra</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="notice">Edital</label>
+          <input type="text" class="form-control rounded" name="notice">
+          <label for="name" class="mt-2">Nome</label>
+          <input type="text" class="form-control rounded" name="name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Criar obra</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script %}
+<script type="module" src="{% static 'budgeting/js/project.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+{% endblock %}
