@@ -9,45 +9,42 @@ Relatório: {{ project.name }}
 <main class="flex-grow-1">
   
   <div id="print-header">
-    <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" id="logo-print">
+    <div class="animated-logo">
+      <span>Cost</span><span>plan</span>
+    </div>
 
-    <h1 class="text-center">RELATÓRIO</h1>
-    <h3 class="text-center">LEVANTAMENTO DE CUSTOS, COMPOSIÇÃO DE PREÇOS UNITÁRIOS E PRECIFICAÇÃO DE SERVIÇOS DE PROJETO, CONSTRUÇÃO E MONTAGEM DE REDES DE DISTRIBUIÇÃO DE GÁS NATURAL</h2>
+    <h1 class="text-center">Relatório</h1>
 
     <div id="registration" class="page">
       <div class="d-flex w-100 flex-column gap-3">
+        <div class="d-flex w-100 bg-gray rounded border">
+          <div class="fs-3 mx-auto">Cadastro Inicial da Obra</div>
+        </div>
         <div class="d-flex w-100 bg-gray rounded border">
           <div class="fs-4 mx-auto">Informações Cadastrais e Técnicas da Obra</div>
         </div>
         <form id="registration-form" class="d-flex flex-column w-100 gap-4">
           <div class="row">
             <div class="col-3">
-              <label for="notice" class="form-label">Edital</label>
-              <input type="text" class="form-control rounded" name="notice" autocomplete="off" value="{{ project.notice }}"/>
+              <label for="notice" class="form-label">Código</label>
+              <input type="text" class="form-control rounded" name="notice" autocomplete="off" value="{{ project.code }}" required/>
             </div>
             <div class="col-6">
-              <label for="name" class="form-label">Objeto contratual</label>
-              <input type="text" class="form-control rounded" name="name" autocomplete="off" value="{{ project.name }}">
+              <label for="name" class="form-label">Nome</label>
+              <input type="text" class="form-control rounded" name="name" autocomplete="off" value="{{ project.name }}" required>
             </div>
             <div class="col-3">
               <label for="date" class="form-label">Data</label>
-              <input id="project-date" type="date" class="form-control rounded" name="date" autocomplete="off" value="{{ project.date|date:'Y-m-d' }}"/>
+              <input id="project-date" type="date" class="form-control rounded" name="date" autocomplete="off" value="{{ project.date|date:'Y-m-d' }}" required/>
             </div>
           </div> 
           <div class="row">
-            <div class="col-9">
-              <label for="type" class="form-label">Tipo de Obra</label>
-              <select class="form-select rounded" aria-label="Default select example" name="type">
-                <option value="" {% if not project.type %}disabled selected{% endif %}>Selecione o tipo de obra</option>
-                  {% for value, display in project.PROJECT_TYPE_CHOICES %}
-                    <option value="{{ value }}" {% if project.type == value %}selected{% endif %}>
-                      {{ display }}
-                    </option>
-                  {% endfor %}
-              </select>
+            <div class="col-6">
+              <label for="location" class="form-label">Local</label>
+              <input id="project-location" type="text" class="form-control rounded" name="location" autocomplete="off" value="{{ project.location }}"/>
             </div>
-            <div class="col-3">
-              <label for="template" class="form-label">Template Base</label>
+            <div class="col-6">
+              <label for="template" class="form-label">Template</label>
               <select id="template-select" class="form-select rounded template-select" aria-label="Default select example" name="template">
                   {% for item in template %}
                     <option value="{{ item.pk }}" {% if project.template and project.template.pk == item.pk %}selected{% endif %}>
@@ -57,37 +54,21 @@ Relatório: {{ project.name }}
               </select>
             </div>
           </div>
-          <div class="row">
-            <div class="col-6">
-              <label for="execution_regime" class="form-label">Regime de Execução</label>
-              <input type="text" class="form-control rounded" value="{% if project.execution_regime %}{{ project.execution_regime}}{% endif %}" name="execution_regime" autocomplete="off"/>
-            </div>
-      
-            <div class="col-6">
-              <label for="requesting_area" class="form-label">Área Requisitante</label>
-              <input type="text" class="form-control rounded" value="{% if project.requesting_area %}{{ project.requesting_area}}{% endif %}" name="requesting_area" autocomplete="off"/>
-            </div>
+          <div>
+            <label for="description" class="form-label">Descrição</label>
+            <textarea class="form-control" name="description">{{ project.description }}</textarea>
           </div>
-          <div class="row">
-            <div class="col-4">
-              <label for="contract_term" class="form-label">Vigência do Contrato (dias)</label>
-              <input type="text" class="form-control rounded" value="{% if project.contract_term %}{{ project.contract_term}}{% else %}0{% endif %}" name="contract_term" autocomplete="off"/>
-            </div>
-            <div class="col-4">
-              <label for="execution_term" class="form-label">Prazo de Execução (dias)</label>
-              <input type="text" class="form-control rounded" value="{% if project.execution_term %}{{ project.execution_term}}{% else %}0{% endif %}" name="execution_term" autocomplete="off"/>
-            </div>
-            <div class="col-4">
-              <label for="mobilization_term" class="form-label">Prazo de Mobilização (dias)</label>
-              <input type="text" class="form-control rounded" value="{% if project.mobilization_term %}{{ project.mobilization_term}}{% else %}0{% endif %}" name="mobilization_term" autocomplete="off"/>
-            </div>
+          <div class="button-container">
+            <button type="submit" class="btn btn-primary save-btn">
+              Salvar
+            </button>
           </div>
         </form>
       </div>
     </div>
+
     <div>
       <p>Responsável Elaboração: {{ user.username }}</p>
-      <p>Método: Programa Costplan </p>
       <p id="datetime"></p>
     </div>
   </div>
@@ -107,18 +88,18 @@ Relatório: {{ project.name }}
       <table class="table table-striped-even">
         <colgroup>
           <col style="width: 8%;">
-          <col style="width: 54%;">
+          <col style="width: 39%;">
           <col style="width: 8%;"> 
-          <col style="width: 10%;">
-          <col style="width: 10%;">
-          <col style="width: 10%;">
+          <col style="width: 15%;">
+          <col style="width: 15%;">
+          <col style="width: 15%;">
         </colgroup>
         <thead class="table-header">
           <tr>
             <th>Item</th>
             <th>Descrição</th>
             <th>UN.</th>
-            <th>Quantidade</th>
+            <th>QTDE</th>
             <th>Preço Unit. (R$)</th>
             <th>Preço Total (R$)</th>
           </tr>
@@ -153,49 +134,6 @@ Relatório: {{ project.name }}
 
     </form>
 
-    <div class="d-flex flex-column gap-3 mt-3">
-      <h4 class="d-flex">Informações</h4>
-      <ol class="d-flex flex-column gap-3">
-        <li class="fs-6">
-          AS QUANTIDADES DE SERVIÇOS CONSTANTES DA PLANILHA DE PREÇOS UNITÁRIOS
-          SÃO ESTIMADAS, PODENDO, POR CONSEGUINTE, OCORRER UMA VARIAÇÃO PARA MAIS
-          OU PARA MENOS, EM FUNÇÃO DAS NEGOCIAÇÕES COMERCIAIS DOS CONTRATOS DE
-          FORNECIMENTO DE GÁS, SEM QUE CAIBA AO CONTRATADO O DIREITO A QUALQUER
-          RECLAMAÇÃO, INDENIZAÇÃO OU DE SOLICITAR ALTERAÇÃO DOS PREÇOS UNITÁRIOS
-          PROPOSTOS, NOS TERMOS DO § 1º DO ART. 65 DA LEI 8.666/93.
-        </li>
-        <li class="fs-6">
-          TODOS OS CUSTOS REFERENTES A QUAISQUER SERVIÇOS OU MATERIAIS NECESSÁRIOS
-          A CONSTRUÇÃO, MONTAGEM E PRÉ-OPERAÇÃO DOS RAMAIS, CITADOS NO MEMORIAL
-          DESCRITIVO, DESENHOS, ESPECIFICAÇÕES, E NOS DEMAIS DOCUMENTOS QUE FAZEM
-          PARTE DESTE CONTRATO, QUE POR VENTURA NÃO CONSTEM ESPECIFICAMENTE NESTA
-          PLANILHA, DEVERÃO ESTAR PREVISTOS NO ITEM 4 DESTA PPU.
-        </li>
-        <li class="fs-6">
-          PARA O PROJETO EXECUTIVO COMPLEMENTAR E SONDAGEM GEOFÍSICA DOS RAMAIS DE
-          SATURAÇÃO, AS EXTENSÕES SERÃO ENQUADRADAS NA PPU CONSIDERANDO-SE OS
-          VALORES EM CASCATA, ISTO É, OS "INTERVALOS DE EXTENSÃO" SERÃO
-          MULTIPLICADOS PELOS PREÇOS UNITÁRIOS CORRESPONDENTES A CADA SUB-ITEM
-          (1.1.1 E 1.1.2 PARA O PRIMEIRO E 1.2.1 E 1.2.2 PARA O SEGUNDO). Exemplo:
-          Projetos com extensão até 100 m, serão medidos nos itens 1.1.1 e 1.2.1
-          (se aplicável). Projetos com extensão maior que 100 m (ex. 1.000m),
-          serão medidos 1 (unidade = 100m) nos itens 1.1.1 e 1.2.1 (se aplicável)
-          e o excedente a 900 m será medido nos itens 1.1.2 e 1.2.2 (se
-          aplicável).
-        </li>
-        <li class="fs-6">
-          PARA O ESTUDO DE INTERFERÊNCIA ELÉTRICA, AS EXTENSÕES SERÃO ENQUADRADAS
-          NA PPU CONSIDERANDO-SE OS VALORES EM CASCATA, ISTO É, OS "INTERVALOS DE
-          EXTENSÃO" SERÃO MULTIPLICADOS PELOS PREÇOS UNITÁRIOS CORRESPONDENTES A
-          CADA SUB-ITEM (1.4.3 PARA O PRIMEIRO E 1.4.4 PARA O SEGUNDO). Exemplo:
-          Projetos com extensão até 20 km, serão medidos no item 1.4.3. Projetos
-          com extensão maior que 20 km (ex. 21 km), serão medidos 1 (unidade = 20
-          km) no item 1.4.3 e o excedente a 1 km será medido no item 1.4.4. O
-          mesmo critério se aplica ao item 14.5 - PROJETO DE SISTEMA DE PROTEÇÃO
-          CATÓDICA.
-        </li>
-      </ol>
-    </div>
   </div>
 </main>
 {% endblock %}

@@ -70,16 +70,14 @@ export function displayCostComposition(headerBody, body, data, can_edit=false) {
         const row = document.createElement('tr');
         const quantity = item.quantity ? formatBrazilianNumber(item.quantity) : "";
 
-        // Add a class if the item has no quantity
-        if (!item.quantity) row.classList.add('bg-gray');
-
         row.innerHTML = `
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td>${item.unit}</td>
-            ${can_edit && item.quantity ?
+            ${can_edit ?
                 `<td class="input">
-                    <input type="text" class="form-control" name="${item.id}" value="${quantity}" aria-label="Quantidade de ${item.name} (ID: ${item.id})">
+                    <input type="text" class="form-control" name="${item.id}" value="${quantity}" 
+                    aria-label="Quantidade de ${item.name} (ID: ${item.id})">
                 </td>`
                 : `<td>${quantity}</td>`
             }
@@ -140,7 +138,7 @@ export function displayCostComposition(headerBody, body, data, can_edit=false) {
  * @param {string} value - The string value to parse.
  * @returns {number} Parsed float value, or 0 if parsing fails.
  */
-export const parseValue = (value) => parseFloat(value.replace(',', '.')) || 0;
+export const parseValue = (value) => parseFloat(value.replaceAll('.', '').replace(',', '.')) || 0;
 
 
 /**
@@ -175,6 +173,7 @@ export const updateCell = (cellId, value) => {
  * 
  * @param {Object} data - Array of objects representing CBS data.
  * @param {HTMLFormElement} cbsForm - The form element containing CBS-related inputs.
+ * @returns {number} The project Total cost.
  */
 export function updateCbsTable(data, cbsForm) {
     let totalCostSum = 0;
@@ -206,4 +205,5 @@ export function updateCbsTable(data, cbsForm) {
     });
 
     document.getElementById('total-cost-display').innerHTML = "R$ " + formatBrazilianNumber(totalCostSum);
+    return totalCostSum
 }

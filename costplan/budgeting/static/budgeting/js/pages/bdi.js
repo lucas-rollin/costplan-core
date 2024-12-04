@@ -1,4 +1,4 @@
-import { getCookie, formatBrazilianNumber, parseValue, sumInputs, updateCell } from '../utils.js';
+import { getCookie, formatBrazilianNumber, sumInputs, parseValue, updateCell } from '../utils.js';
 
 const csrftoken = getCookie('csrftoken');
 
@@ -58,8 +58,7 @@ const calculateAndUpdateBdi = () => {
     const total6 = parseValue(bdiForm.querySelector('input[name="6.1"]').value);
 
     // Calculate partial and total BDI values
-    const bdiPartial = total1 + total2 + total3 + total4 + total5 + total6;
-    const bdiTotal = bdiPartial + total7;
+    const bdiTotal = total1 + total2 + total3 + total4 + total5 + total6 + total7;
 
     // Update table cells
     updateCell('bdi-1', total1);
@@ -69,7 +68,6 @@ const calculateAndUpdateBdi = () => {
     updateCell('bdi-5', total5);
     updateCell('bdi-6', total6);
     updateCell('bdi-7', total7);
-    updateCell('bdi-partial', bdiPartial);
     updateCell('bdi-total', bdiTotal);
 };
 

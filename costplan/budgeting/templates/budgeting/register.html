@@ -7,108 +7,45 @@ Register
 
 {% block body %}
 
-  <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo">
+<div class="animated-logo logo-auth">
+  <span>Cost</span><span>plan</span>
+</div>
 
-  <div class="login">
+<div class="auth">
+
+  <form class="auth-form" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    <div class="form-floating">
+      <input autofocus class="form-control" type="text" name="username" placeholder="Usuário" required>
+      <label>Usuário</label>
+    </div>
+    <div class="form-floating">
+      <input autofocus class="form-control" type="email" name="email" placeholder="Email" required>
+      <label>Email</label>
+    </div>
+    <div class="form-floating">
+      <input class="form-control" type="password" name="password" placeholder="Senha" required>
+      <label>Senha</label>
+    </div>
+    <div class="form-floating">
+      <input class="form-control" type="password" name="confirmation" placeholder="Confirmar Senha" required>
+      <label>Confirmar Senha</label>
+    </div>
+    {% if message %}
+      <div class="alert alert-warning" role="alert">{{ message }}</div>
+    {% endif %}
+
+    <button class="btn btn-primary center" type="submit">
+      <span class="d-flex align-items-center gap-3">Login<i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></span>
+    </button>
     
-    <form class="login-form" action="{% url 'register' %}" method="post">
-      {% csrf_token %}
+  </form>
 
-      <div class="form-floating ">
-        <input class="form-control" type="email" name="email" placeholder="Email" maxlength="320" required>
-        <label>Email</label>
-      </div>
+</div>
 
-      {% if message %}
-        <div class="alert alert-warning" role="alert">{{ message }}</div>
-      {% endif %}
+<div class="center">
+Já possui uma conta?&nbsp;<a href="{% url 'login' %}">Clique aqui.</a>
+</div>
 
-      <button class="btn btn-primary center" type="submit">
-        <span class="d-flex align-items-center gap-3">Request<i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></span>
-      </button>
-      
-    </form>
-
-  </div>
-
-  <div class="center">
-  Esqueceu a senha?&nbsp;<a href="{% url 'register' %}">Clique aqui</a>
-  </div>
 
 {% endblock %}
-
-<div class="d-flex flex-column bg-primary" id="sidebar-nope" hidden>
-  <ul class="nav nav-pills flex-column mb-auto gap-2 mt-5">
-    <li class="nav-item">
-      <button class="nav-link toggle-btn" id="toggle-sidebar">
-      <i class="fa-solid fa-fw fa-angles-left fs-5 p-0 m-0"></i>
-      </button>
-    </li>
-    <li class="nav-item">
-      <a id="registration-button" class="nav-link page-button active" href="#registration">
-      <i class="fa-solid fa-fw fa-file-pen fs-5"></i>
-      Cadastro da Obra
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="cost-breakdown-template-button" class="nav-link page-button" href="#cost-breakdown-template">
-      <i class="fa-solid fa-fw fa-folder fs-5"></i>
-      PPU-Templates
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="cost-breakdown-sheet-button" class="nav-link page-button" href="#cost-breakdown-sheet">
-      <i class="fa-solid fa-fw fa-helmet-safety fs-5"></i>
-      PPU
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="histogram-button" class="nav-link page-button" href="#histogram">
-      <i class="fa-solid fa-fw fa-calendar-check fs-5"></i>
-      Histograma
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="schedule-button" class="nav-link page-button" href="#schedule">
-      <i class="fa-solid fa-fw fa-calendar-days fs-5"></i>
-      Cronograma
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="bdi-button" class="nav-link page-button" href="#bdi">
-      <i class="fa-solid fa-fw fa-percent fs-5"></i>
-      BDI
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="charges-button" class="nav-link page-button" href="#charges">
-      <i class="fa-solid fa-fw fa-scroll fs-5"></i>
-      Encargos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="cost-composition-button" class="nav-link page-button" href="#cost-composition">
-      <i class="fa-solid fa-fw fa-search fs-5"></i>
-      CPUs
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="cost-composition-all-button" class="nav-link page-button" href="#cost-composition-all">
-      <i class="fa-solid fa-fw fa-hammer fs-5"></i>
-      CPU Todos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="resource-button" class="nav-link page-button" href="#resource">
-      <i class="fa-solid fa-fw fa-gears fs-5"></i>
-      Recursos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="report-button" class="nav-link page-button" href="#report">
-      <i class="fa-solid fa-fw fa-file-export fs-5"></i>
-      Relatório
-      </a>
-    </li>
-  </ul>
-</div>

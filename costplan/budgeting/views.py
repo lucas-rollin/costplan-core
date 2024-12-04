@@ -2,14 +2,15 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
+from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import build_cost_composition_data
-from django.db.models import Sum
+from django.db.models import Sum, F
 
 
-from .models import Project, ProjectBDI, CostBreakdownSheet, ProjectCostBreakdown, CostComposition, CostBreakdownTemplate, ProjectCharge
+from .models import User, Project, ProjectBDI, CostBreakdownSheet, ProjectCostBreakdown, CostComposition, CostBreakdownTemplate, Resource
 
 
 @login_required
@@ -29,33 +30,13 @@ def index(request):
     except Project.DoesNotExist:
         return HttpResponseRedirect(reverse("project"))
 
-    cbs = CostBreakdownSheet.objects.all()
+    cbs = CostBreakdownSheet.objects.all().order_by('id')
     user = request.user
     template = CostBreakdownTemplate.get_visible_templates(user)
-
-    # Retrieve and group charges by category
-    charges = (
-        ProjectCharge.objects.filter(project=project)
-        .select_related("charge_item")
-        .order_by("charge_item__category")
-    )
-    
-    grouped_charges = {}
-    for charge in charges:
-        category = charge.charge_item.category
-        if category not in grouped_charges:
-            grouped_charges[category] = {"charges": [], "total": 0}
-        grouped_charges[category]["charges"].append(charge)
-        grouped_charges[category]["total"] += charge.rate
-
-    # Calculate overall total
-    charges_total = sum(data["total"] for data in grouped_charges.values())
 
     return render(request, "budgeting/index.html", {
         "project": project,
         "cbs": cbs,
-        "charges": grouped_charges,
-        "charges_total": round(charges_total, 2),
         "template": template,
     })
 
@@ -87,26 +68,52 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+
+        # Ensure password matches confirmation
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "budgeting/register.html", {
+                "message": "Passwords must match."
+            })
+
+        # Attempt to create new user
+        try:
+            user = User.objects.create_user(username, email, password)
+            user.save()
+        except IntegrityError:
+            return render(request, "budgeting/register.html", {
+                "message": "Username already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "budgeting/register.html")
+
+
 @login_required
 def project(request):
     """Loads the project selection page and handles project creation."""
     if request.method == "POST":
         # Get image and content data
         data = json.loads(request.body)
-        notice = data.get("notice", "")
+        code = data.get("code", "")
         name = data.get("name", "")
 
         # Reject blank content field
-        if not notice or not name:
+        if not code or not name:
             return JsonResponse({"error": "Missing required field."}, status=400)
 
         # Save project to Project model
-        project = Project(user=request.user, notice=notice, name=name)
+        project = Project(user=request.user, code=code, name=name)
         project.save()
 
         project.generate_bdi()
         project.generate_cost_breakdown()
-        project.generate_charge()
 
         return JsonResponse({"message": "Project created successfully.", "project_id": project.pk}, status=201)
     
@@ -131,15 +138,11 @@ def update_project(request):
         data = json.loads(request.body)
 
         # Update basic project fields
-        project.notice = data.get('notice', project.notice)
+        project.code = data.get('notice', project.code)
         project.name = data.get('name', project.name)
-        project.type = data.get('type', project.type)
         project.date = data.get('date', project.date)
-        project.execution_regime = data.get('execution_regime', project.execution_regime)
-        project.requesting_area = data.get('requesting_area', project.requesting_area)
-        project.contract_term = data.get('contract_term', project.contract_term)
-        project.execution_term = data.get('execution_term', project.execution_term)
-        project.mobilization_term = data.get('mobilization_term', project.mobilization_term)
+        project.description = data.get('description', project.description)
+        project.location = data.get('location', project.location)
 
         # Handle template selection
         template_id = data.get('template')
@@ -209,7 +212,7 @@ def update_cbs(request):
         
         for key, value in data.items():
             try:
-                value = float(value.replace(",", "."))
+                value = float(value.replace(".","").replace(",", "."))
             except ValueError:
                 return JsonResponse({"error": f"Invalid value for {key}."}, status=400)
 
@@ -293,7 +296,7 @@ def cost_composition_all(request):
     bdi = ProjectBDI.objects.filter(project=project_id).aggregate(Sum('rate'))['rate__sum']
     
     # Paginate the results
-    paginator = Paginator(cost_breakdown_sheets, 3)  # 10 items per page
+    paginator = Paginator(cost_breakdown_sheets, 5)  # 10 items per page
     try:
         page_obj = paginator.page(page_number)
     except PageNotAnInteger:
@@ -371,35 +374,6 @@ def get_bdi(request):
 
 
 @login_required
-def update_charges(request):
-    """Edits project-specific charge rates."""
-    if request.method == "PUT":
-        project_id = request.session.get("project_id")
-        project = get_object_or_404(Project, pk=project_id, user=request.user)
-
-        data = json.loads(request.body)
-        updates = []
-        
-        for key, value in data.items():
-            try:
-                value = float(value.replace(",", "."))
-            except ValueError:
-                return JsonResponse({"error": f"Invalid value for {key}."}, status=400)
-
-            charge_item = ProjectCharge.objects.filter(project=project, charge_item=key).first()
-            if charge_item:
-                charge_item.rate = value
-                updates.append(charge_item)
-            else:
-                return JsonResponse({"error": f"Charge item {key} not found."}, status=404)
-
-        ProjectCharge.objects.bulk_update(updates, ['rate'])
-
-        return JsonResponse({"message": "Charge updated successfully."})
-    return JsonResponse({"error": "PUT request required."}, status=400)
-
-
-@login_required
 def update_composition(request, template_id, composition_id):
     """Edits cost composition entries."""
     if request.method == "PUT":
@@ -448,4 +422,34 @@ def report(request, project_id):
         "template": template
     })
     
-            
+
+def get_project_resource(request):
+    project_id = request.session.get("project_id")
+
+    # Get resources and annotate total quantity and total cost
+    resources = (
+        Resource.objects.filter(
+            cost_composition__item__project_breakdowns__project_id=project_id
+        )
+        .annotate(
+            total_quantity=Sum(F("cost_composition__quantity") * F("cost_composition__item__project_breakdowns__quantity")),
+            total_cost=Sum(F("cost") * F("cost_composition__quantity") * F("cost_composition__item__project_breakdowns__quantity")),
+        )
+        .distinct()
+    )
+
+    # Create a JSON-friendly structure
+    data = [
+        {
+            "id": resource.id,
+            "name": resource.name,
+            "unit": resource.unit.symbol,
+            "unit_cost": float(resource.cost),
+            "quantity": float(resource.total_quantity) if resource.total_quantity else 0.00,
+            "total_cost": float(resource.total_cost) if resource.total_cost else 0.00,
+        }
+        for resource in resources
+    ]
+
+    # Convert to JSON string
+    return JsonResponse(data, safe=False)

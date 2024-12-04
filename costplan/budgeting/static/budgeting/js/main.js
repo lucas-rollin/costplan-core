@@ -49,10 +49,9 @@ function closeAllSubMenus(){
 import { initRegistration } from './pages/registration.js';
 import { initCbs } from './pages/cbs.js';
 import { initBdi } from './pages/bdi.js';
-import { initCharges } from './pages/charges.js';
 import { initCostComposition } from './pages/costComposition.js';
 import { initCostCompositionAll } from './pages/costCompositionAll.js';
-
+import { initResource } from './pages/resource.js';
 
 /**
  * Mapping of page IDs to their respective initialization functions.
@@ -62,10 +61,9 @@ const pageFunctions = {
     "registration": initRegistration,
     "cost-breakdown-sheet": initCbs,
     "bdi": initBdi,
-    "charges": initCharges,
     "cost-composition": initCostComposition,
-    "cost-composition-all": initCostCompositionAll
-    // Add more pages and their init functions here
+    "cost-composition-all": initCostCompositionAll,
+    "resource": initResource
 };
 
 

@@ -14,7 +14,9 @@ Projetos
     
     <!-- Logo -->
     <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
-      <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo-project">
+      <div class="animated-logo large-logo">  
+        <span>Cost</span><span>plan</span>
+      </div>
     </div>
     
     <!-- User Info and Buttons -->
@@ -46,13 +48,13 @@ Projetos
       </div>
       <div class="row gap-2 bg-gray border rounded py-2">
         <div class="col d-flex justify-content-center align-items-center">
-          <div class="fs-5">Edital</div>
+          <div class="fs-5">Código</div>
         </div>
         <div class="col d-flex justify-content-center align-items-center">
           <div class="fs-5">Nome</div>
         </div>
         <div class="col d-flex justify-content-center align-items-center">
-          <div class="fs-5">Data</div>
+          <div class="fs-5">Início</div>
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center">
           <div class="fs-5 overflow-hidden">Relatório</div>
@@ -65,7 +67,7 @@ Projetos
       {% for project in projects %}
       <div class="row gap-2 border rounded py-2">
         <div class="col d-flex justify-content-center align-items-center">
-          <div class="fs-5">{{ project.notice }}</div>
+          <div class="fs-5">{{ project.code }}</div>
         </div>
         <div class="col d-flex justify-content-center align-items-center">
           <div class="fs-5">{{ project.name }}</div>
@@ -101,10 +103,10 @@ Projetos
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <label for="notice">Edital</label>
-          <input type="text" class="form-control rounded" name="notice">
+          <label for="code">Código</label>
+          <input id="code" type="text" class="form-control rounded" name="code">
           <label for="name" class="mt-2">Nome</label>
-          <input type="text" class="form-control rounded" name="name">
+          <input id="name" type="text" class="form-control rounded" name="name">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

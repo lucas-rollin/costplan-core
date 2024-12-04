@@ -7,11 +7,14 @@ Login
 
 {% block body %}
 
-  <img src="{% static 'budgeting/img/logo.png' %}" alt="logo image" class="logo-login">
 
-  <div class="login">
+  <div class="animated-logo logo-auth">
+    <span>Cost</span><span>plan</span>
+  </div>
 
-    <form class="login-form" action="{% url 'login' %}" method="post">
+  <div class="auth">
+
+    <form class="auth-form" action="{% url 'login' %}" method="post">
       {% csrf_token %}
       <div class="form-floating">
         <input autofocus class="form-control" type="text" name="username" placeholder="Usuário" required>
@@ -34,7 +37,7 @@ Login
   </div>
 
   <div class="center">
-  Esqueceu a senha?&nbsp;<a href="{% url 'password_reset' %}">Clique aqui</a>
+    Não possui uma conta?&nbsp;<a href="{% url 'register' %}">Clique aqui.</a>
   </div>
 
 {% endblock %}

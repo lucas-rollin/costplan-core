@@ -3,7 +3,7 @@ import { getCookie } from './utils.js';
 const csrftoken = getCookie('csrftoken');
 
 const NewProjectForm = document.getElementById('new-project-form')
-
+console.log(NewProjectForm)
 
 /**
  * Handle project creation submission with AJAX
@@ -11,7 +11,7 @@ const NewProjectForm = document.getElementById('new-project-form')
  */
 NewProjectForm.onsubmit = () => {
   // Get the form fields
-  const notice = NewProjectForm.elements['notice'].value;
+  const code = NewProjectForm.elements['code'].value;
   const name = NewProjectForm.elements['name'].value;
 
   // POST request to create a project
@@ -22,7 +22,7 @@ NewProjectForm.onsubmit = () => {
       'X-CSRFToken': csrftoken
     },
     body: JSON.stringify({
-      notice: notice,
+      code: code,
       name: name
     })
   })
@@ -44,7 +44,7 @@ NewProjectForm.onsubmit = () => {
       }
       
       // Add project to table
-      add_project(result.project_id, notice, name, new Date().toLocaleDateString("pt-BR"))
+      add_project(result.project_id, code, name, new Date().toLocaleDateString("pt-BR"))
     }
   });
 
@@ -56,18 +56,18 @@ NewProjectForm.onsubmit = () => {
  * Adds a new project to table.
  * 
  * @param {number} project_id - The project ID.
- * @param {number} notice - The project notice.
+ * @param {number} code - The project code.
  * @param {string} name - The project name.
  * @param {date} date - The project creation date.
  */
-function add_project(project_id, notice, name, date) {
+function add_project(project_id, code, name, date) {
   // Create a new row for the project
   const newRow = document.createElement('div');
   newRow.className = 'row gap-2 border rounded py-2';
 
   newRow.innerHTML = `
     <div class="col d-flex justify-content-center align-items-center">
-      <div class="fs-5">${notice}</div>
+      <div class="fs-5">${code}</div>
     </div>
     <div class="col d-flex justify-content-center align-items-center">
       <div class="fs-5">${name}</div>

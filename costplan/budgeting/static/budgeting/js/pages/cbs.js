@@ -1,7 +1,9 @@
-import { getCookie, displayCostComposition, updateCbsTable } from '../utils.js';
+import { getCookie, formatBrazilianNumber, displayCostComposition, updateCbsTable, parseValue, updateCell } from '../utils.js';
 
 const csrftoken = getCookie('csrftoken');
 const cbsForm = document.querySelector('#cost-breakdown-sheet-form');
+
+let projectTotal = 0;
 
 /**
  * Fetches CBS (Cost Breakdown Sheet) data from the server and updates the page.
@@ -12,7 +14,7 @@ function getCbs() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        updateCbsTable(data, cbsForm); // Call the function to update the table
+        projectTotal = updateCbsTable(data, cbsForm); // Call the function to update the table
     })
     .catch(error => {
         console.error("Error fetching Cost Breakdown Sheet data:", error);
@@ -47,6 +49,36 @@ function load_cost_composition(template, composition) {
             console.error("Error fetching Cost Composition data:", error);
         });
 }
+
+
+/**
+ * Calculates and updates the costs for a row and the project total.
+ * 
+ * @param {HTMLInputElement} inputCell - The input cell that triggered the calculation.
+ */
+function calculateAndUpdateCbs(inputCell) {
+    const row = inputCell.parentElement.parentElement; // Get the row
+    const quantity = parseValue(inputCell.value);
+
+    const unitCostCell = row.querySelector(`[id^="cbs-uc"]`);
+    const totalCostCell = row.querySelector(`[id^="cbs-tc"]`);
+
+    const unitCost = parseValue(unitCostCell.innerHTML);
+
+    const previousTotal = parseValue(totalCostCell.innerHTML); // Previous total for this row
+    const newTotal = quantity * unitCost;
+
+    // Update the total for this row
+    updateCell(totalCostCell.id, newTotal);
+
+    // Update the project total incrementally
+    projectTotal += newTotal - previousTotal;
+
+    // Update the project total display
+    document.getElementById('total-cost-display').innerHTML = "R$ " + formatBrazilianNumber(projectTotal);
+}
+
+
 
 /**
  * Initializes the CBS page functionality.
@@ -93,14 +125,15 @@ export function initCbs() {
                 if ('error' in result) {
                     alert(`Error: ${result.error}`);
                 } else {
-                    getCbs();
+                    alert(`Message: ${result.message}`);
                 }
             })
             .catch(error => console.error("Fetch Error:", error)); // Log fetch errors
     };
 
     // Fetch initial data and populate the table
-    getCbs();
+    getCbs()
+    
 
     // Add event listeners for each CBS item to open related Cost Composition
     document.querySelectorAll('.cbs-id').forEach((el) => {
@@ -111,5 +144,10 @@ export function initCbs() {
 
             load_cost_composition(template, composition);
         });
+    });
+
+    // Attach input listeners for dynamic calculations
+    cbsForm.querySelectorAll('input').forEach((input) => {
+        input.addEventListener('input', () => calculateAndUpdateCbs(input));
     });
 }

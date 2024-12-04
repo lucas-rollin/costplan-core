@@ -1,10 +1,46 @@
 :root {
     --bs-gray-150: #f3f3f3;
-    --base-clr: #0d6efd;
-    --hover-clr: #559bfd;
+    --base-clr: #23272b;
+    --hover-clr: #f9f9f930;
     --text-clr: white;
-    --accent-clr: #003885;
+    --accent-clr: #895eff;
 }
+
+/* Default link styling */
+.animated-logo {
+    text-decoration: none;
+    position: relative; /* Necessary for the pseudo-element positioning */
+    font-weight: bold; /* Optional: adjust as needed */
+    font-size: 64px;
+}
+.animated-logo span {
+    color: var(--accent-clr);
+}
+.animated-logo span ~ span {
+    color: var(--base-clr);
+}
+  
+/* Hover underline effect */
+.animated-logo::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 12px;
+    width: 0;
+    height: 5px;
+    background-color: #895EFF;
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+  
+  /* On hover, expand the underline */
+.animated-logo:hover::after {
+    width: 100%;
+}
+.large-logo {
+    font-size: 80px;
+}
+  
 #sidebar{
     box-sizing: border-box;
     height: 100vh;
@@ -217,11 +253,11 @@ main p{
 }
 
 
-.login {
+.auth {
     margin: 0 10px;
 }
 
-.login-form {
+.auth-form {
     margin: 20px auto;
     width: 100%;
     max-width: 400px;
@@ -236,7 +272,7 @@ main p{
 }
 
 @media (max-width: 420px) {
-    .login-form {
+    .auth-form {
         padding: 30px 20px;
     }
 }
@@ -252,11 +288,13 @@ main p{
     margin-top: 10px;
 }
 
-.logo-login {
+.logo-auth {
     display: block;
-    margin: 30px auto;
+    margin: 10px auto;
     width: 100%; 
     max-width: 400px; 
+    text-align: center;
+    font-size: 75px;
 }
 
 .logo-project {
@@ -273,7 +311,7 @@ main p{
     margin: 20px 12px;
 }
 
-nav > div {
+#sidebar > div {
     margin: 0 10px;
 }
 
@@ -370,18 +408,18 @@ nav > div {
 }
 
 table {
-    border-collapse:separate;
-    border-spacing: 8px 8px;
+    border-collapse: separate;
+    border: solid black 1px;
+    border-radius: 5px;
+    border-spacing: 4px;
     table-layout: fixed;
-    width: 100%; /* Ensures the table spans the container */
 }
 
 table.mb {
-    margin-bottom: -8px !important;
+    margin-bottom: 10px !important;
 }
 
 th, td {
-    border-radius: 8px;
     text-align: center;
     vertical-align: middle;
     overflow: hidden;
