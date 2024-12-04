@@ -14,7 +14,6 @@ urlpatterns = [
     path("update_bdi", views.update_bdi, name="update_bdi"),
     path("update_cbs", views.update_cbs, name="update_cbs"),
     path("update_composition/<int:template_id>/<str:composition_id>", views.update_composition, name="update_composition"),
-    path("api/get_project_resource", views.get_project_resource, name="get_project_resource"),
     path("pdf/report/<int:project_id>", views.report, name="report"),
 
     # API routes
@@ -22,4 +21,5 @@ urlpatterns = [
     path("api/get_cbs", views.get_cbs, name="get_cbs"),
     path("api/cost_composition", views.cost_composition, name="cost_composition"),
     path("api/cost_composition_all", views.cost_composition_all, name="cost_composition_all"),
+    path("api/get_project_resource", views.get_project_resource, name="get_project_resource"),
 ]

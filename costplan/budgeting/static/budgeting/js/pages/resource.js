@@ -1,39 +1,22 @@
-import { formatBrazilianNumber } from '../utils.js';
+import { updateResourceTable } from '../utils.js';
 
-const tBody = document.getElementById('resource-tbody');
+const body = document.getElementById('resource-tbody');
 
+/**
+ * Fetches Resource data from the server and updates the page.
+ * - Calls `updateResourceTable` to populate the Resource table with fetched data.
+ */
 function getResources() {
     fetch('api/get_project_resource')
     .then(response => response.json())
     .then(data => {
-        updateResourceTable(data);
+        updateResourceTable(data, body);
     })
     .catch(error => {
         console.error("Error fetching BDI data:", error);
     });
 }
 
-
-function updateResourceTable(data) {
-
-    const frag = document.createDocumentFragment();
-
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td>${item.unit}</td>
-            <td>${formatBrazilianNumber(item.unit_cost)}</td>
-            <td>${formatBrazilianNumber(item.quantity)}</td>
-            <td>${formatBrazilianNumber(item.total_cost)}</td>
-        `;
-        frag.appendChild(row);
-    });
-
-
-    tBody.appendChild(frag)
-}
 
 /**
  * Initializes the Resource page functionality.

@@ -6,16 +6,18 @@
     --accent-clr: #895eff;
 }
 
-/* Default link styling */
+/* Default logo Styles */
 .animated-logo {
     text-decoration: none;
-    position: relative; /* Necessary for the pseudo-element positioning */
-    font-weight: bold; /* Optional: adjust as needed */
+    position: relative;
+    font-weight: bold;
     font-size: 64px;
 }
+
 .animated-logo span {
     color: var(--accent-clr);
 }
+
 .animated-logo span ~ span {
     color: var(--base-clr);
 }
@@ -37,6 +39,7 @@
 .animated-logo:hover::after {
     width: 100%;
 }
+
 .large-logo {
     font-size: 80px;
 }
@@ -55,14 +58,17 @@
     overflow: hidden;
     text-wrap: nowrap;
 }
+
 #sidebar.close{
     padding: 5px;
     width: 60px;
 }
+
 #sidebar ul{
     list-style: none;
     padding: 0 !important;
 }
+
 #sidebar > ul > li:first-child{
 display: flex;
 justify-content: flex-end;
@@ -72,6 +78,7 @@ margin-bottom: 16px;
         font-weight: 600;
     }
 }
+
 #sidebar ul li.active a{
 color: var(--accent-clr);
 
@@ -80,7 +87,7 @@ color: var(--accent-clr);
     }
 }
 
-#sidebar a, #sidebar .dropdown-btn, #sidebar .logo{
+#sidebar a, #sidebar .logo{
     border-radius: .5em;
     padding: .85em;
     text-decoration: none;
@@ -91,45 +98,24 @@ color: var(--accent-clr);
     font-weight: 500;
     cursor: pointer;
 }
-.dropdown-btn{
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    font: inherit;
-    cursor: pointer;
-}
+
 #sidebar svg{
     flex-shrink: 0;
     fill: var(--text-clr);
 }
-#sidebar a span, #sidebar .dropdown-btn span{
+
+#sidebar a span{
     flex-grow: 1;
 }
-#sidebar a:hover, #sidebar .dropdown-btn:hover{
+
+#sidebar a:hover{
     background-color: var(--hover-clr);
 }
-#sidebar .sub-menu{
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: 300ms ease-in-out;
 
-    > div{
-        overflow: hidden;
-    }
-}
-#sidebar .sub-menu.show{
-    grid-template-rows: 1fr;
-}
-.dropdown-btn svg{
-    transition: 200ms ease;
-}
 .rotate svg:last-child{
     rotate: 180deg;
 }
-#sidebar .sub-menu a{
-    padding-left: 2em;
-}
+
 #toggle-btn{
     margin-left: auto;
     padding: 13px;
@@ -142,9 +128,11 @@ color: var(--accent-clr);
         transition: rotate 150ms ease;
     }
 }
+
 #toggle-btn:hover{
     background-color: var(--hover-clr);
 }
+
 main{
     flex: 1;
     padding: 2rem;
@@ -154,14 +142,17 @@ main{
     min-height: 100vh;
     transition: margin-left 0.3s ease-in-out, max-width 0.3s ease-in-out;
 }
+
 main.collapsed {
     margin-left: 50px !important;
     max-width: calc(100% - 50px) !important;
 }
+
 main p{
     margin-top: 5px;
     margin-bottom: 15px;
 }
+
 .page{
     margin-bottom: 20px;
 
@@ -169,10 +160,13 @@ main p{
 }
 
 @media(max-width: 800px) {
+
     main {
         padding: 1rem;
         margin-bottom: 3rem;
+        font-size: smaller;
     }
+
     #sidebar {
         /* Existing styles */
         height: 60px;
@@ -191,11 +185,12 @@ main p{
             align-items: center;
             overflow-x: scroll;
         }
+
         ul li {
             height: 100%;
         }
-        ul a,
-        ul .dropdown-btn {
+
+        ul a {
             width: 60px;
             height: 60px;
             padding: 0;
@@ -203,8 +198,7 @@ main p{
             justify-content: center;
         }
 
-        ul li span,
-        .dropdown-btn svg:last-child {
+        ul li span {
             display: none;
         }
 
@@ -221,34 +215,27 @@ main p{
             bottom: 0;
             left: 0;
         }
-        #toggle-btn svg {
-            fill: var(--text-clr);
-        }
+    }
 
-        ul li .sub-menu.show {
-            position: fixed;
-            bottom: 60px;
-            left: 0;
-            box-sizing: border-box;
-            height: 60px;
-            width: 100%;
-            background-color: var(--hover-clr);
-            display: flex;
-            justify-content: center;
+    #project-header {
+        font-size: 1.25rem !important;
+    }
+    
+    .project-row > div > div,
+    .project-row > div > form > button {
+        font-size: 1rem !important;
+    }
 
-            > div {
-                overflow-x: auto;
-            }
-            li {
-                display: inline-flex;
-            }
-            a {
-                box-sizing: border-box;
-                padding: 1em;
-                width: auto;
-                justify-content: center;
-            }
-        }
+    .project-row > div:nth-child(3) {
+        display: none !important;
+    }
+
+    #project-section {
+        padding: 2rem !important;
+    }
+
+    .col-icon {
+        width: 15% !important;
     }
 }
 
@@ -303,6 +290,22 @@ main p{
     max-width: 300px;
 }
 
+.col-icon {
+    width: 10%;
+}
+
+#project-header {
+    font-size: 1.5rem;
+}
+
+
+.project-row > div {
+    > div,
+    > form > button {
+        font-size: 1.25rem;
+    }
+}
+
 .logo-sm {
     height: 40px;
 }
@@ -349,14 +352,15 @@ main p{
 } 
   
 .logout-link {
-    color: #007bff;  /* Bootstrap's primary color */
+    color: #007bff;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
     gap: 5px;
+    font-size: medium;
 }
   
 .logout-link:hover {
-    color: #0056b3;  /* Darker shade for hover effect */
+    color: #0056b3;
 }
   
 /* Styling for the create project button */
@@ -386,9 +390,9 @@ main p{
 }
 
 #project-section {
-    padding: 3rem !important;
+    padding: 3rem;
 }
-/* Index page */
+
 .logo-index {
     max-width: 300px;
     height: auto;
@@ -396,15 +400,6 @@ main p{
 
 #aside-user {
     margin: auto;
-}
-
-/* Toggle button styles */
-.toggle-btn {
-    position: absolute;
-    top: 15px; /* Adjust to match vertical alignment */
-    right: 15px; /* Start at the right edge of the full sidebar */
-    padding: 0;
-    transition: transform 0.3s ease, right 0.3s ease;
 }
 
 table {
@@ -428,32 +423,31 @@ th, td {
 .table-header {
     position: sticky;
     top: 0;
-    background-color: #F3F3F3; /* Matches table header color */
+    background-color: var(--bs-gray-150);
     z-index: 2;
 }
 
 .sticky-column {
     position: sticky;
     left: 0;
-    background-color: #fff; /* Matches table cell background */
+    background-color: #fff;
     z-index: 1;
 }
+
 .table-container {
     overflow-x: auto;
 }
-.table-row:hover {
-    background-color: #e9ecef;
-}
+
 td.input {
     padding: 3px !important;
 }
+
 td.input > input {
     padding: 4px !important;
     text-align: center;
     transition: box-shadow 0.3s ease-in-out !important;
 }
 
-/* BDI */
 #bdi-formula {
     width: 450px;
 }
@@ -497,11 +491,7 @@ td.input > input {
     margin-right: 12px;
 }
 
-.table-striped-even>tbody>tr:nth-of-type(even)>* { 
-    --bs-table-accent-bg: var(--bs-table-striped-bg);
-    color: var(--bs-table-striped-color);
-}
-
+/* Add left alignment to specific table columns */
 #charges-table-body>tr>td:nth-child(1),
 #cost-composition-tbody>tr>td:nth-child(2),
 #cost-composition-all-tbody>tr>td:nth-child(2),
@@ -521,12 +511,15 @@ td.input > input {
     text-align: center;
     width: 100px;
 }
+
 #cost-breakdown-template-create {
     box-shadow: 0px 1px 3px lightblue;
 }
+
 .cbs-id {
     cursor: pointer;
 }
+
 .ptr {
     cursor: pointer;
 }

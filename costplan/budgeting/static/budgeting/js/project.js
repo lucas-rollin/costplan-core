@@ -63,17 +63,17 @@ NewProjectForm.onsubmit = () => {
 function add_project(project_id, code, name, date) {
   // Create a new row for the project
   const newRow = document.createElement('div');
-  newRow.className = 'row gap-2 border rounded py-2';
+  newRow.className = 'row gap-2 border rounded py-2 project-row';
 
   newRow.innerHTML = `
     <div class="col d-flex justify-content-center align-items-center">
-      <div class="fs-5">${code}</div>
+      <div>${code}</div>
     </div>
     <div class="col d-flex justify-content-center align-items-center">
-      <div class="fs-5">${name}</div>
+      <div>${name}</div>
     </div>
     <div class="col d-flex justify-content-center align-items-center">
-      <div class="fs-5">${date}</div>
+      <div>${date}</div>
     </div>
     <div class="col-1 d-flex justify-content-center align-items-center">
       <div class="fs-5 text-danger generate-pdf ptr" onclick="(window.open('\/pdf\/report\/${project_id}' , '_blank').focus())">

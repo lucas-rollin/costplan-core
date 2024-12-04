@@ -9,17 +9,14 @@ Relatório: {{ project.name }}
 <main class="flex-grow-1">
   
   <div id="print-header">
-    <div class="animated-logo">
+    <div id="logo-print" class="animated-logo">
       <span>Cost</span><span>plan</span>
     </div>
 
-    <h1 class="text-center">Relatório</h1>
+    <h1 id="title">Relatório: {{ project.name }}</h1>
 
     <div id="registration" class="page">
       <div class="d-flex w-100 flex-column gap-3">
-        <div class="d-flex w-100 bg-gray rounded border">
-          <div class="fs-3 mx-auto">Cadastro Inicial da Obra</div>
-        </div>
         <div class="d-flex w-100 bg-gray rounded border">
           <div class="fs-4 mx-auto">Informações Cadastrais e Técnicas da Obra</div>
         </div>
@@ -58,18 +55,13 @@ Relatório: {{ project.name }}
             <label for="description" class="form-label">Descrição</label>
             <textarea class="form-control" name="description">{{ project.description }}</textarea>
           </div>
-          <div class="button-container">
-            <button type="submit" class="btn btn-primary save-btn">
-              Salvar
-            </button>
-          </div>
         </form>
       </div>
-    </div>
 
-    <div>
-      <p>Responsável Elaboração: {{ user.username }}</p>
-      <p id="datetime"></p>
+      <div>
+        <p>Responsável Elaboração: {{ user.username }}</p>
+        <p id="datetime"></p>
+      </div>
     </div>
   </div>
   
@@ -85,7 +77,7 @@ Relatório: {{ project.name }}
     </table>
 
     <form id="cost-breakdown-sheet-form">
-      <table class="table table-striped-even">
+      <table class="table">
         <colgroup>
           <col style="width: 8%;">
           <col style="width: 39%;">
@@ -106,22 +98,28 @@ Relatório: {{ project.name }}
         </thead>
         <tbody id="cost-breakdown-sheet-tbody">
           {% for item in cbs %}
-          <tr>
-            <td {% if item.is_leaf %}class="cbs-id"{% endif %}>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.unit }}</td>
             {% if item.is_leaf %}
-            <td class="input">
-              <input type="text" class="form-control" name="{{ item.id }}" value="0,00">
-            </td>
-            <td>0,00</td>
-            <td>0,00</td>
+              <tr>
+                <td class="cbs-id">{{item.id}}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.unit }}</td>
+                <td class="input">
+                  <input type="text" class="form-control" name="{{ item.id }}"
+                   value="0,00" aria-label="Quantidade de {{ item.name }} (ID: {{ item.id }})">
+                </td>
+                <td id="cbs-uc-{{ item.id }}"></td>
+                <td id="cbs-tc-{{ item.id }}"></td>
+              </tr>
             {% else %}
-            <td></td>
-            <td></td>
-            <td></td>
+              <tr class="bg-gray">
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             {% endif %}
-          </tr>
           {% endfor %}
         </tbody>
       </table>
@@ -135,6 +133,40 @@ Relatório: {{ project.name }}
     </form>
 
   </div>
+
+  <div id="resource" class="page">
+    <table class="table mb">
+      <thead class="bg-gray">
+        <tr>
+          <th class="fs-3 fw-normal header">Total de Recursos</th>
+        </tr>
+      </thead>
+    </table>
+
+    <table id="resource-table" class="table">
+      <colgroup>
+        <col style="width: 8%;">
+        <col style="width: 48%;">
+        <col style="width: 8%;">
+        <col style="width: 12%;">
+        <col style="width: 12%;">
+        <col style="width: 12%;">
+      </colgroup>
+      <thead class="table-header">
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>UN</th>
+          <th>QTDE</th>
+          <th>Custo Unitário (R$)</th>
+          <th>Custo Total (R$)</th>
+        </tr>
+      </thead>
+      <tbody id="resource-tbody">
+      </tbody>
+    </table>
+  </div>
+
 </main>
 {% endblock %}
 
@@ -148,22 +180,34 @@ Relatório: {{ project.name }}
     main {
       display: block !important;
     }
-    #cost-breakdown-sheet {
+
+    #title {
+      margin: 250px auto 0;
+      font-size: 36px;
+    }
+
+    #registration,
+    #cost-breakdown-sheet,
+    #resource {
       page-break-before: always;
     }
+
     #registration {
       border: 1px solid gray;
       border-radius: 8px;
       padding: 16px;
     }
+
     body {
-      -webkit-print-color-adjust: exact; /* For Webkit-based browsers (e.g., Chrome) */
-      print-color-adjust: exact; /* For other browsers */
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
-    #logo-print {
-      max-width: 250px;
-      height: auto;
+
+    .animated-logo {
+      font-size: 120px;
+      text-align: center;
     }
+
     #print-header {
       display: flex;
       flex-direction: column !important;

@@ -241,8 +241,8 @@ def get_cbs(request):
         {
             "id": item.standard_item.id,
             "quantity": item.quantity,
-            "unit_cost": item.unit_cost * bdi,  # Use the unit_cost property
-            "total_cost": item.total_cost * bdi,  # Use the total_cost property
+            "unit_cost": item.unit_cost * bdi,
+            "total_cost": item.total_cost * bdi,
         }
         for item in cbs_items
     ]
@@ -412,7 +412,7 @@ def update_composition(request, template_id, composition_id):
 def report(request, project_id):
     """Generates a PDF report for a given project."""
     project = get_object_or_404(Project, pk=project_id, user=request.user)
-    cbs = CostBreakdownSheet.objects.all()
+    cbs = CostBreakdownSheet.objects.all().order_by('id')
     user = request.user
     template = CostBreakdownTemplate.get_visible_templates(user)
 
@@ -424,29 +424,25 @@ def report(request, project_id):
     
 
 def get_project_resource(request):
+    """Fetches resource data with total quantities and cost."""
     project_id = request.session.get("project_id")
 
-    # Get resources and annotate total quantity and total cost
-    resources = (
-        Resource.objects.filter(
-            cost_composition__item__project_breakdowns__project_id=project_id
-        )
-        .annotate(
-            total_quantity=Sum(F("cost_composition__quantity") * F("cost_composition__item__project_breakdowns__quantity")),
-            total_cost=Sum(F("cost") * F("cost_composition__quantity") * F("cost_composition__item__project_breakdowns__quantity")),
-        )
-        .distinct()
+    # Get resources and annotate total quantity
+    resources = Resource.objects.filter(
+        cost_composition__item__project_breakdowns__project_id=project_id
+    ).annotate(
+        quantity=Sum(F("cost_composition__quantity") * F("cost_composition__item__project_breakdowns__quantity"))
     )
 
-    # Create a JSON-friendly structure
+    # Create a JSON structure
     data = [
         {
             "id": resource.id,
             "name": resource.name,
             "unit": resource.unit.symbol,
+            "quantity": float(resource.quantity) if resource.quantity else 0,
             "unit_cost": float(resource.cost),
-            "quantity": float(resource.total_quantity) if resource.total_quantity else 0.00,
-            "total_cost": float(resource.total_cost) if resource.total_cost else 0.00,
+            "total_cost": float(resource.cost * resource.quantity) if resource.quantity else 0,
         }
         for resource in resources
     ]

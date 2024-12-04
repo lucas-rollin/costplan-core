@@ -8,23 +8,19 @@ Costplan is a web application designed for efficient budgeting of engineering pr
 ## Distinctiveness and Complexity
 
 ### Distinctiveness
-Costplan is a web application tailored for budgeting in engineering projects, setting it apart from typical CS50W projects like social media or e-commerce applications. It introduces a domain-specific approach by automating the creation of Cost Breakdown Sheets (CBS) and standard project activities based on predefined compositions. Users can simply adjust quantities rather than manually entering extensive data, streamlining the budgeting process.
-
-Unlike other projects, Costplan emphasizes automation and domain expertise, reducing CRUD operations and focusing on efficient data management. Additionally, the hierarchical structure of data (e.g., CBS and Cost Compositions) reflects real-world complexities unique to engineering projects, making it distinct from more general-purpose applications.
+Costplan is a web application designed specifically for budgeting in engineering projects, offering a unique focus compared to CS50W projects like social media platforms or e-commerce sites. It stands out by automating the creation of project activities based on a predefined Cost Breakdown Sheet (CBS). This approach reduces manual data entry, allowing users to simply adjust quantities, which streamlines the budgeting process.
 
 ### Complexity
-Costplan’s complexity is evident in its backend and frontend design:
+Costplan demonstrates complexity through its backend architecture and dynamic frontend features:
 
 1. **Backend**:
-   - Utilizes **15 Django models**, some with hierarchical relationships, to model real-world engineering data.
-   - Implements automation for project initialization, generating standard activities and cost breakdowns automatically.
+   - Utilizes **10 Django models**, including hierarchical relationships, to represent real-world engineering data.
+   - Automates project setup by generating standard activities automatically during creation.
 
 2. **Frontend**:
-   - The main page operates as a **Single-Page Application (SPA)**, requiring extensive use of AJAX and additional API routes for dynamic content updates.
-   - Designed for mobile responsiveness, balancing a rich user interface with compatibility across devices.
+   - Features a **Single-Page Application (SPA)**, requiring extensive use of AJAX and additional API routes for dynamic content updates.
+   - Implements real-time calculations for totals based on user input.
    - Includes a sidebar-based layout, adding complexity to responsive design.
-
-Costplan combines backend automation, real-world data modeling, and frontend interactivity to deliver a specialized and sophisticated tool for engineering project budgeting.
 
 
 ## Table of Contents
@@ -46,7 +42,6 @@ Costplan combines backend automation, real-world data modeling, and frontend int
 - **Cost Compositions:** Define resource requirements for CBS items once and reuse them across projects.
 - **Cost Breakdown Templates:** Create templates to adjust quantities for projects in different contexts (e.g., regional variations).
 - **Budgeting Difference Income (BDI):** Apply taxes and profit margins using a dedicated BDI table.
-- **Social Charges:** Account for labor costs by filling in the Charges table.
 - **Resource Models:** Store market prices for materials, labor, and services for accurate cost estimations.
 - **Admin Page:** Allow admins to manage all models, including resource prices.
 - **Single Page Application:** Enjoy a seamless user experience with dynamic, real-time updates and navigation using AJAX.
@@ -84,19 +79,15 @@ git clone https://github.com/Harddus0/costplan.git
 
 ## Usage
 
-1. After running the application, navigate to `http://127.0.0.1:8000` in your browser.
-2. Register for an account or log in if you already have one.
-3. Create a new project, change values for tables and export your CBS as PDF.
+1. Register for an account or log in if you already have one.
+2. Create a new project and open it
+3. Change quantities for tables and export your CBS as PDF.
+4. Optionally, create a new Template and change Cost Composition resource quantities.
 
 ## project structure
 ```
 costplan/
 ├── costplan/                     # Main project folder (Django settings)
-│   ├── __init__.py               # Marks this directory as a Python package
-│   ├── asgi.py                   # ASGI configuration for async support
-│   ├── settings.py               # Main project settings
-│   ├── urls.py                   # URL routing for the entire project
-│   └── wsgi.py                   # WSGI configuration for deployment
 ├── budgeting/                    # Core application folder
 │   ├── __init__.py               # Marks this directory as a Python package
 │   ├── admin.py                  # Admin site configuration
@@ -116,19 +107,19 @@ costplan/
 │   │       ├── project.js        # Handles project selection page
 │   │       ├── report.js         # Handles PDF generation
 │   │       └── pages/            # SPA-specific JavaScript files
-│   │           ├── bdi.js        # Budgeting Difference Income page logic
-│   │           ├── cbs.js        # Cost Breakdown Sheet page logic
-│   │           ├── charges.js    # Charges table logic
-│   │           ├── costComposition.js  # Cost Composition page logic
+│   │           ├── bdi.js                 # Budgeting Difference Income page logic
+│   │           ├── cbs.js                 # Cost Breakdown Sheet page logic
+│   │           ├── costComposition.js     # Cost Composition page logic
 │   │           ├── costCompositionAll.js  # Global Cost Compositions logic
-│   │           └── registration.js  # Project Registration page logic
-│   ├── templates/                # HTML templates for the app
-│   │   ├── index.html            # SPA base template
-│   │   ├── layout.html           # Base layout template
-│   │   ├── login.html            # Login page template
-│   │   ├── register.html         # Registration page template
-│   │   ├── project.html          # Project selection page
-│   │   └── report.html           # PDF generation template
+│   │           ├── registration.js        # Project Registration page logic
+│   │           └── resource.js            # Resource page logic
+│   └── templates/                # HTML templates for the app
+│       ├── index.html            # SPA base template
+│       ├── layout.html           # Base layout template
+│       ├── login.html            # Login page template
+│       ├── register.html         # Registration page template
+│       ├── project.html          # Project selection page
+│       └── report.html           # PDF generation template
 └── manage.py                     # Command-line utility for Django
 ```
 
@@ -144,7 +135,12 @@ Templates are used to render HTML pages in the web application. Below is an over
   The main template for the Single Page Application (SPA). It serves as the core structure for displaying all project-related information. The page includes a header section, a sidebar for navigation within the SPA, and a main section with unique `<div>` containers for each page. It lazily loads the required JavaScript and provides links to the project selection page and the logout function.
 
 - **layout.html**  
-  The base layout template for all pages. It includes common styles and scripts used across the application. Other templates extend this file to ensure consistency in design and functionality.
+  The foundational template for the web application. It provides a shared structure that ensures consistency across all pages. The `layout.html` template includes:    
+    - **Header**: links to common stylesheets and resources, including **Bootstrap**, custom stylesheet (`styles.css`), a block for page-specific styles (`{% block style %}`), **Font Awesome** and favicon. 
+    - **Body**:  Provides the main container for the page content. This section includes a block (`{% block body %}`) where child templates define their specific content.
+    - **Footer**: Includes a block (`{% block script %}`) for page-specific JavaScript scripts, allowing child templates to add custom functionality as needed.
+    - **Extensibility**: Other templates inherit from `layout.html`, leveraging its consistent design while adding their unique elements where necessary.
+
 
 - **login.html**
 The login page template. It renders the form for user authentication and redirects users to the project selection page upon successful login.
@@ -165,13 +161,17 @@ The JavaScript files handle client-side logic and enhance user interactions. Bel
 Manages SPA navigation and overall functionality. It listens for URL hash changes to dynamically load sections of the application without full page reloads. Additionally, it manages sidebar interactions, such as highlighting the selected page and ensuring submenu functionality.
 
 - **utils.js**
-A collection of utility functions used throughout the app. Functions include retrieving CSRF tokens for AJAX requests and converting numbers to Brazilian formats, among others.
+A collection of utility functions used throughout the app. Functions include retrieving CSRF tokens for AJAX requests, converting numbers to Brazilian formats and functions that are used by more than one file.
 
 - **project.js**
 Handles project selection and management. This file enables project creation via AJAX and updates the project list dynamically. It also attaches event listeners to buttons for generating PDF reports, redirecting users to the report template.
 
 - **report.js**
-Facilitates PDF generation for the CBS report. It uses the same method for constructing the CBS table as the CBS page, fetching data via an AJAX request to `/api/get_cbs`. After PDF generation or cancellation, the page redirects users back to the SPA or the project selection page.
+Facilitates PDF generation for the CBS report.
+  - Reuses the same table-construction methods as the CBS and Resource pages by importing utility functions from `utils.js`.  
+  - Fetches data via API routes to build the CBS and Resource tables dynamically.  
+  - Most functions are asynchronous (`async`) to ensure the tables are fully constructed before calling `window.print()`.  
+  - Includes logic to handle redirection after PDF generation or cancellation, returning users to the SPA or project selection page.
 
 #### Page-Specific JavaScript Files
 - **bdi.js** 
@@ -179,9 +179,6 @@ Manages the Budgeting Difference Income (BDI) page, where users input taxes, pro
 
 - **cbs.js**
 Handles the Cost Breakdown Sheet (CBS) page, allowing users to view and edit project cost details. Users can enter quantities and see calculated total costs. Event listeners are added for saving updates via a PUT request to `/update_cbs` and for opening related cost composition sheets.
-
-- **charges.js**
-Manages the social charges page, where users input labor-related charges, such as taxes. Like bdi.js, it dynamically calculates totals and subtotals and sends updates via a PUT request to `/update_charges`.
 
 - **costComposition.js**
 Handles the Cost Composition page, where users manage resources for each CBS item. Users search for a specific template and cost composition using a form, triggering an AJAX GET request to `/api/cost_composition` with relevant parameters. The page also allows users to create templates through a pop-up form, sending a POST request to `/template`. If a template is user-created (not public), input fields appear for resource quantities, which can be saved via a "Save" button.
@@ -192,9 +189,8 @@ Manages the Cost Composition All page, which provides a broader view of all cost
 - **registration.js**
 Handles project editing and CBS template selection. Users can update project details via a form, submitting a PUT request to `/update_project` using AJAX.
 
-### CSS File
-
-Includes the styles.css file. The app uses Bootstrap whenever possible for simplification while styles.css adds personalized styles as well as media queries for responsiveness such as reduce padding and letter size for smaller screens or turn the sidebar into a bottom navbar. 
+- **resource.js**
+Manages the Resource page, where all resources used in the project can be seen. It retrieves data using an AJAX GET request to `/api/get_project_resource`.
 
 ### CSS File
 The app includes a custom `styles.css` file to complement Bootstrap. This file provides personalized styles and media queries for responsiveness. Below are its key features, grouped by functionality:
@@ -205,7 +201,7 @@ The app includes a custom `styles.css` file to complement Bootstrap. This file p
 
 - **Responsive Design:**
   - Introduces media queries to optimize layouts for various screen sizes.
-  - Adjusts padding, font sizes, and visibility of certain elements for smaller screens.
+  - Adjusts padding and font sizes of certain elements for smaller screens.
   - Converts the sidebar into a bottom navbar for devices with limited screen width.
 
 ## Back End
@@ -228,21 +224,20 @@ The data models are structured to represent key entities and relationships in th
 ---
 
 ##### Project
-- **Description**: Represents a project in the application. Each project includes cost breakdown sheets (CBS), budget difference income (BDI), charges, and associated resources.  
+- **Description**: Represents a project in the application. Each project includes cost breakdown sheets (CBS), budget difference income (BDI) and associated resources.  
 - **Fields**:  
-  - `user`, `notice`, `name`, `type`, `date`, `execution_regime`, `requesting_area`, `contract_term`, `execution_term`, `mobilization_term`, `template`.  
+  - `user`, `code`, `name`, `date`, `description`, `location`, `template`.  
 - **Relationships**:  
   - Many-to-one with `User` (a user can have multiple projects).  
   - Many-to-one with `CostBreakdownTemplate`.  
   - Many-to-many with `CBS` through `ProjectCostBreakdown`.  
   - Many-to-many with `BDI` through `ProjectBDI`.  
-  - Many-to-many with `Charge` through `ProjectCharge`.  
 - **Methods**:  
-  - `generate_cost_breakdown`, `generate_bdi`, `generate_charge`.
+  - `generate_cost_breakdown`, `generate_bdi`.
 
 ---
 
-#### BDI and Charge Entities
+#### BDI Entity
 
 ##### BudgetDifferenceIncome (BDI)
 - **Description**: Represents budget difference income items, grouped into hierarchical categories.
@@ -253,23 +248,13 @@ The data models are structured to represent key entities and relationships in th
 
 ---
 
-##### Charge
-- **Description**: Represents social charges applied to labor, with a structure similar to BDI.  
+##### ProjectBDI
+- **Description**: Stores project-specific rates for BDI items.  
 - **Fields**:  
-  - `id`, `category`, `description`, `default_rate`.  
-- **Relationships**:  
-  - Many-to-many with `Project` through `ProjectCharge`.
-
----
-
-##### ProjectBDI / ProjectCharge
-- **Description**: Stores project-specific rates for BDI and Charge items.  
-- **Fields**:  
-  - `project`, `bdi_item`, `rate` (for `ProjectBDI`).  
-  - `project`, `charge_item`, `rate` (for `ProjectCharge`).  
+  - `project`, `bdi_item`, `rate`.
 - **Relationships**:  
   - Many-to-one with `Project`.  
-  - Many-to-one with `BDI` / `Charge`.
+  - Many-to-one with `BDI`.
 
 ---
 
@@ -313,16 +298,9 @@ The data models are structured to represent key entities and relationships in th
 #### Resource Management
 
 ##### Resource
-- **Description**: Represents resources (e.g., materials, labor, services) with a hierarchical parent-child structure.  
+- **Description**: Represents resources (e.g., materials, labor, equipment) with a hierarchical parent-child structure.  
 - **Fields**:  
-  - `id`, `name`, `unit`, `resource_type`, `parent`, `is_leaf`.  
-- **Methods**:  
-  - `get_cost`: Calculates resource cost based on its type.
-
-##### Material / Labor / Service (Inherit from Resource)
-- **Material**: Includes a `cost` field and `get_cost` method to return the material cost.  
-- **Labor**: Includes `base_cost`, `type`, and `dangerousness` fields. Adjusts cost based on social charges.  
-- **Service**: Includes a `cost` field and `get_cost` method to return the service cost.
+  - `id`, `name`, `unit`, `cost`. 
 
 ---
 
@@ -349,18 +327,13 @@ The data models are structured to represent key entities and relationships in th
 - **`/update_composition/<int:template_id>/<str:composition_id>`**: Edits cost composition entries.  
 - **`/api/cost_composition`**: Fetches detailed data for a single cost composition.  
 - **`/api/cost_composition_all`**: Provides paginated data for multiple cost compositions.
+- **`/api/get_project_resource`**: Fetches resource data with total quantities and cost.
 
 ---
 
 #### Budget Difference Income (BDI) Management
 - **`/update_bdi`**: Edits project-specific BDI rates.  
 - **`/api/get_bdi`**: Fetches BDI data.
-
----
-
-#### Charge Management
-- **`/update_charges`**: Edits project-specific charge rates.  
-- **`/api/get_charges`**: Fetches charge data.
 
 ---
 

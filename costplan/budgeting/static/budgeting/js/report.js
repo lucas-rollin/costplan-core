@@ -1,44 +1,65 @@
-import { updateCbsTable } from './utils.js';
+import { updateCbsTable, updateResourceTable } from './utils.js';
 
-const cbsForm = document.getElementById('cost-breakdown-sheet-form'); 
-
+const cbsForm = document.getElementById('cost-breakdown-sheet-form');
+const resourceBody = document.getElementById('resource-tbody');
 
 /**
- * Update the CBS table after fetch request.
- * @returns the fetch promise for executing the following code only after the update is complete.
+ * Fetch and update the CBS table.
+ * @returns {Promise<void>} Resolves after table update is complete.
  */
 async function getCbs() {
-    return fetch('../../api/get_cbs') // Return the fetch promise
-    .then(response => response.json())
-    .then(data => {
+    try {
+        const response = await fetch('../../api/get_cbs');
+        const data = await response.json();
         console.log(data);
-        updateCbsTable(data, cbsForm); // Call the function to update the table
-    })
-    .catch(error => {
+        updateCbsTable(data, cbsForm);
+    } catch (error) {
         console.error("Error fetching Cost Breakdown Sheet data:", error);
-    });
+    }
 }
 
+/**
+ * Fetch and update the Resource table.
+ * @returns {Promise<void>} Resolves after table update is complete.
+ */
+async function getResources() {
+    try {
+        const response = await fetch('../../api/get_project_resource');
+        const data = await response.json();
+        updateResourceTable(data, resourceBody);
+    } catch (error) {
+        console.error("Error fetching Resource data:", error);
+    }
+}
 
 /**
- * Call `getCbs` and wait for it to finish before printing.
+ * Main function to handle the sequence of operations.
  */
-getCbs().then(() => {
-    // Get current date and time
-    var d = new Date();
-    var date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+async function main() {
+    try {
+        // Wait for both getCbs and getResources to finish
+        await getCbs();
+        await getResources();
 
-    // Insert date and time into HTML
-    document.getElementById("datetime").innerHTML = `Data: ${date}`;
+        // Get current date and time
+        const d = new Date();
+        const date = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
 
-    // Print PDF 
-    window.print();
-});
+        // Insert date and time into HTML
+        document.getElementById("datetime").innerHTML = `Data: ${date}`;
 
+        window.print();
+    } catch (error) {
+        console.error("Error during execution:", error);
+    }
+}
 
 /**
- * Close window after completion.
+ * Close window after printing.
  */
-window.onafterprint = function() {
+window.onafterprint = function () {
     window.close();
 };
+
+// Start the process
+main();

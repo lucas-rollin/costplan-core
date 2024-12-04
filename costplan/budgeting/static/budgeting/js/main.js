@@ -1,7 +1,6 @@
 // Handle sidebar and dropdown buttons toggle
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
-const dropdownButtons = document.querySelectorAll('.dropdown-btn')
 
 
 /**
@@ -10,40 +9,8 @@ const dropdownButtons = document.querySelectorAll('.dropdown-btn')
 toggleButton.addEventListener('click', () => {
     sidebar.classList.toggle('close');
     toggleButton.classList.toggle('rotate');
-  
-    closeAllSubMenus();
 })
 
-
-/**
- * Attaches click event listeners to dropdown buttons to toggle submenu visibility.
- */
-dropdownButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        if(!btn.nextElementSibling.classList.contains('show')){
-            closeAllSubMenus();
-          }
-        
-          btn.nextElementSibling.classList.toggle('show');
-          btn.classList.toggle('rotate');
-        
-          if(sidebar.classList.contains('close')){
-            sidebar.classList.toggle('close');
-            toggleButton.classList.toggle('rotate');
-          }
-    })
-})
-
-
-/**
- * Closes all open submenus in the sidebar.
- */
-function closeAllSubMenus(){
-  Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
-    ul.classList.remove('show');
-    ul.previousElementSibling.classList.remove('rotate');
-  })
-}
 
 // Import modular initialization functions for individual pages
 import { initRegistration } from './pages/registration.js';

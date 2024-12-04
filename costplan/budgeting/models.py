@@ -19,7 +19,7 @@ class Project(models.Model):
         verbose_name = "Projeto"
 
     def __str__(self):
-        return f"{self.name} (Notice: {self.notice})"
+        return f"{self.name} (Notice: {self.code})"
 
     def generate_cost_breakdown(self):
         """Generates a new cost breakdown for this project based on the standard structure."""
@@ -180,7 +180,7 @@ class CostComposition(models.Model):
         unique_together = ('item', 'resource', 'template')
 
     def __str__(self):
-        return f"{self.resource} - {self.item}"
+        return f"{self.item} - {self.resource.id}, quantity: {self.quantity}"
     
     def total_cost(self):
         """Calculate the total cost for this resource in the composition."""
@@ -199,23 +199,16 @@ class MeasurementUnit(models.Model):
         return f"{self.symbol}"
 
 
-class Resource(models.Model):
-    RESOURCE_TYPE_CHOICES = [
-        ('m', 'Material'), # Material
-        ('l', 'Mão de obra'), # Labor
-        ('s', 'Serviço') # Service
-    ]
-    
-    id = models.CharField(max_length=10, primary_key=True)
+class Resource(models.Model):    
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     unit = models.ForeignKey('MeasurementUnit', on_delete=models.CASCADE, blank=True, null=True, related_name='%(class)s_units')
-    resource_type = models.CharField(max_length=1, choices=RESOURCE_TYPE_CHOICES, blank=True, null=True)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = "Recurso"
 
     def __str__(self):
-        return f"{self.id}"
+        return f"{self.id} - {self.name}"
 
 

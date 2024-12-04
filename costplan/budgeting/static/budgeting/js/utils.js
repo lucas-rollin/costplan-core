@@ -91,23 +91,17 @@ export function displayCostComposition(headerBody, body, data, can_edit=false) {
     // Add footer rows to the fragment
     const footerRows = [
         `
-        <td colspan="6" class="text-start">TOTAL DE CUSTOS DIRETOS SEM BDI - DO ITEM</td>
-        <td class="text-center">${formatBrazilianNumber(data.header.total_cost)}</td>
-        `,
-        `
-        <td colspan="4" class="text-start">TOTAL DE CUSTOS DIRETOS COM BDI - DO ITEM</td>
-        <td colspan="2" class="text-center">BDI: ${formatBrazilianNumber(data.header.bdi)} %</td>
-        <td>${formatBrazilianNumber(data.header.total_cost_bdi)}</td>
-        `,
-        `
-        <td colspan="6" class="text-start">PREÇO UNITÁRIO - DO ITEM</td>
+        <td colspan="6" class="text-start">Preço Unitário SEM BDI</td>
         <td class="text-center">${formatBrazilianNumber(data.header.unit_cost)}</td>
         `,
         `
-        <td colspan="4" class="text-start">PREÇO UNITÁRIO PARA FATURAMENTO - DO ITEM:   COM DESCONTO</td>
-        <td class="text-center"><label for="discount">Disc:</label></td>
-        <td class="input">0,00</td>
-        <td>${formatBrazilianNumber(data.header.unit_cost)}</td>
+        <td colspan="6" class="text-start">Total de Custos SEM BDI</td>
+        <td class="text-center">${formatBrazilianNumber(data.header.total_cost)}</td>
+        `,
+        `
+        <td colspan="4" class="text-start">TOTAL DE CUSTOS DIRETOS COM BDI</td>
+        <td colspan="2" class="text-center">BDI: ${formatBrazilianNumber(data.header.bdi)} %</td>
+        <td>${formatBrazilianNumber(data.header.total_cost_bdi)}</td>
         `
     ];
 
@@ -171,7 +165,7 @@ export const updateCell = (cellId, value) => {
 /**
  * Updates the Cost Breakdown Sheet (CBS) table with data.
  * 
- * @param {Object} data - Array of objects representing CBS data.
+ * @param {Object[]} data - Array of objects containing CBS item data.
  * @param {HTMLFormElement} cbsForm - The form element containing CBS-related inputs.
  * @returns {number} The project Total cost.
  */
@@ -206,4 +200,34 @@ export function updateCbsTable(data, cbsForm) {
 
     document.getElementById('total-cost-display').innerHTML = "R$ " + formatBrazilianNumber(totalCostSum);
     return totalCostSum
+}
+
+/**
+ * Populates the Resource Table with fetched data.
+ * 
+ * @param {Object[]} data - Array of objects containing Resource item data.
+ * @param {HTMLElement} body - The table body for row insertions.
+ */
+export function updateResourceTable(data, body) {
+    body.innerHTML = ''
+
+    // Use DocumentFragment for performance
+    const fragment = document.createDocumentFragment();
+
+    // Add rows to the fragmnet
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.unit}</td>
+            <td>${formatBrazilianNumber(item.quantity)}</td>
+            <td>${formatBrazilianNumber(item.unit_cost)}</td>
+            <td>${formatBrazilianNumber(item.total_cost)}</td>
+        `;
+        fragment.appendChild(row);
+    });
+
+    // Append fragment to body
+    body.appendChild(fragment)
 }
