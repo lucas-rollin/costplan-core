@@ -2,8 +2,6 @@ def build_cost_composition_data(cost_compositions, project_cost_breakdown, bdi):
     """
     Converts CostComposition data into a JSON-serializable format, including header information.
     """
-    project = project_cost_breakdown.project
-
     resources = set()
     for composition in cost_compositions:
         resource = composition.resource

@@ -378,7 +378,7 @@ The admin page provides superusers with comprehensive access to manage all model
 
 #### `utils.py`
 
-The `utils.py` file provides a reusable function handle complex calculations and data formatting for API responses.
+The `utils.py` file provides a reusable function to handle complex calculations and data formatting for API responses.
 
 ##### `build_cost_composition_data(cost_compositions, project_cost_breakdown, bdi)`
 

@@ -75,12 +75,12 @@ function add_project(project_id, code, name, date) {
     <div class="col d-flex justify-content-center align-items-center">
       <div>${date}</div>
     </div>
-    <div class="col-1 d-flex justify-content-center align-items-center">
+    <div class="col-icon d-flex justify-content-center align-items-center">
       <div class="fs-5 text-danger generate-pdf ptr" onclick="(window.open('\/pdf\/report\/${project_id}' , '_blank').focus())">
         <i class="fa-solid fa-file-pdf"></i>
       </div>
     </div>
-    <div class="col-1 d-flex justify-content-center align-items-center">
+    <div class="col-icon d-flex justify-content-center align-items-center">
       <form action="/" method="POST" class="m-0">
         <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}" />
         <input type="hidden" name="project_id" value="${project_id}" />
