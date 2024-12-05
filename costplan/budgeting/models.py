@@ -19,7 +19,7 @@ class Project(models.Model):
         verbose_name = "Projeto"
 
     def __str__(self):
-        return f"{self.name} (Notice: {self.code})"
+        return f"({self.code}) {self.name}"
 
     def generate_cost_breakdown(self):
         """Generates a new cost breakdown for this project based on the standard structure."""
@@ -67,14 +67,17 @@ class BudgetDifferenceIncome(models.Model):
         ("7", "ALÍQUOTA DOS TRIBUTOS INCIDENTES SOBRE O VALOR TOTAL DA OBRA"),
     ]
 
-    class Meta:
-        verbose_name = "BDI"
-        verbose_name_plural = "BDI"
-
     id = models.CharField(max_length=3, primary_key=True)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
     description = models.CharField(max_length=200)
     default_rate = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    class Meta:
+        verbose_name = "BDI"
+        verbose_name_plural = "BDI"
+
+    def __str__(self):
+        return f"({self.id}) {self.description}"
 
 
 class ProjectBDI(models.Model):
@@ -87,7 +90,7 @@ class ProjectBDI(models.Model):
         unique_together = ('project', 'bdi_item')
     
     def __str__(self):
-        return f"{self.bdi_item.id} - {self.bdi_item.description}: R$ {self.rate}"
+        return f"({self.bdi_item.id}) {self.bdi_item.description}: R$ {self.rate}"
 
 
 class CostBreakdownTemplate(models.Model):
@@ -137,7 +140,7 @@ class CostBreakdownSheet(models.Model):
         verbose_name_plural = "PPU"
 
     def __str__(self):
-        return f"{self.id} {self.name}"
+        return f"({self.id}) {self.name}"
     
     def unit_cost(self):
         if self.is_leaf:
@@ -156,7 +159,7 @@ class ProjectCostBreakdown(models.Model):
         unique_together = ('project', 'standard_item')
 
     def __str__(self):
-        return f"{self.project.name}: {self.standard_item.name} (Quantity: {self.quantity})"
+        return f"{self.project} - {self.standard_item.id} (Quantity: {self.quantity})"
 
     @property
     def unit_cost(self):
@@ -180,7 +183,7 @@ class CostComposition(models.Model):
         unique_together = ('item', 'resource', 'template')
 
     def __str__(self):
-        return f"{self.item} - {self.resource.id}, quantity: {self.quantity}"
+        return f"{self.item} - {self.resource.id} (quantity: {self.quantity})"
     
     def total_cost(self):
         """Calculate the total cost for this resource in the composition."""
@@ -209,6 +212,6 @@ class Resource(models.Model):
         verbose_name = "Recurso"
 
     def __str__(self):
-        return f"{self.id} - {self.name}"
+        return f"({self.id}) {self.name}"
 
 
