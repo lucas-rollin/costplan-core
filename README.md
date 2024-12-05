@@ -17,9 +17,11 @@ Costplan is a web application designed for efficient budgeting of civil engineer
    - [Sass and CSS Files](#sass-and-css-files)
 7. [Back End](#back-end)
    - [Models](#models)
+   - [Prepopulated SQLite Database](#prepopulated-sqlite-database)
+   - [Admin Page](#admin-page)
    - [URLs and Views](#urls-and-views)
    - [Utilities](#utilities)
-   - [Admin Page](#admin-page)
+
 
 ## Features
 
@@ -172,6 +174,8 @@ Templates are used to render HTML pages in the web application. Below is an over
 - **report.html**
   This template generates a printable PDF report for the project's Cost Breakdown Sheet (CBS). It is optimized for the browser's built-in print functionality, eliminating the need for external libraries. This template also includes a styles tag responsible for formatting the print layout.
 
+---
+
 ### JavaScript Files
 
 The JavaScript files handle client-side logic and enhance user interactions. Below is an explanation of each file's function:
@@ -205,6 +209,8 @@ The JavaScript files handle client-side logic and enhance user interactions. Bel
 - **resource.js**
   Manages the Resource page, where all resources used in the project can be seen. It retrieves data using an AJAX GET request to `/api/get_project_resource`.
 
+---
+
 ### Sass and CSS Files
 
 The app includes a custom `styles.scss` file, which is compiled into a `styles.css` file. The `styles.css.map` file is generated for debugging purposes. The `styles.scss` file provides personalized styles and media queries for responsiveness, while the compiled `styles.css` is used in the final application. Below are the key features of the Sass file and its compiled output, grouped by functionality:
@@ -222,8 +228,6 @@ The app includes a custom `styles.scss` file, which is compiled into a `styles.c
 
 The back end of the application manages the database models, API endpoints, and business logic that powers the front end. It supports core functionalities such as user authentication, project management, cost calculations and the admin page.
 
----
-
 ### Models
 
 The data models are structured to represent key entities and relationships in the system. Below are the primary models, grouped by their purpose:
@@ -235,8 +239,6 @@ The data models are structured to represent key entities and relationships in th
 - **Description**: Represents the user. Inherits from Django's `AbstractUser` class and includes all default fields.
 - **Relationships**:
   - None (users manage their own projects and templates).
-
----
 
 ##### Project
 
@@ -251,8 +253,6 @@ The data models are structured to represent key entities and relationships in th
 - **Methods**:
   - `generate_cost_breakdown`, `generate_bdi`.
 
----
-
 #### BDI Entity
 
 ##### BudgetDifferenceIncome (BDI)
@@ -263,8 +263,6 @@ The data models are structured to represent key entities and relationships in th
 - **Relationships**:
   - Many-to-many with `Project` through `ProjectBDI`.
 
----
-
 ##### ProjectBDI
 
 - **Description**: Stores project-specific rates for BDI items.
@@ -273,8 +271,6 @@ The data models are structured to represent key entities and relationships in th
 - **Relationships**:
   - Many-to-one with `Project`.
   - Many-to-one with `BDI`.
-
----
 
 #### Cost Breakdown Management
 
@@ -288,8 +284,6 @@ The data models are structured to represent key entities and relationships in th
 - **Methods**:
   - `get_visible_templates`: Retrieves visible templates for a user.
 
----
-
 ##### CostBreakdownSheet (CBS)
 
 - **Description**: Represents hierarchical cost breakdowns for projects.
@@ -301,8 +295,6 @@ The data models are structured to represent key entities and relationships in th
 - **Methods**:
   - `unit_cost`: Calculates the total cost or aggregates costs from child items.
 
----
-
 ##### CostComposition
 
 - **Description**: Defines the resource requirements for CBS items, linking reusable resources with templates.
@@ -313,8 +305,6 @@ The data models are structured to represent key entities and relationships in th
   - Many-to-one with `CostBreakdownTemplate`.
 - **Methods**:
   - `total_cost`: Calculates the total cost for a resource in a composition.
-
----
 
 #### Resource Management
 
@@ -331,9 +321,10 @@ To facilitate development and testing, the application uses a prepopulated SQLit
 
 Key Points:
    - CostBreakdownSheet, Resource, and CostComposition models: These models are prepopulated with sample data, allowing users to interact with the app without needing to create objects manually. This ensures that the application is functional right from the start.
-   - BudgetDifferenceIncome (BDI): The database contains fixed data for the BDI model, which is crucial for the proper functioning of the app. This ensures that the necessary budget data is available for each project.
-   - CostBreakdownTemplate: The database includes the first object for the CostBreakdownTemplate, which serves as a standard template for all future cost breakdown sheets. This template is highly integrated into the app’s functionality and cannot be altered through the admin page.
-This prepopulated data helps ensure that the system runs smoothly and provides a ready-to-use environment for the development and testing of the application.
+   - BudgetDifferenceIncome (BDI): The database contains fixed data for the BDI model, which is important for created projects to automatically create ProjectBDI objects.
+   - CostBreakdownTemplate: The database includes the first object for the CostBreakdownTemplate, which serves as a standard template for created Projects.
+
+---
 
 ### Admin Page
 
@@ -342,9 +333,11 @@ The admin page provides superusers with comprehensive access to manage all model
 #### Special Restrictions
 1. BudgetDifferenceIncome
    - This model has a fixed structure where each object's primary key (id) determines its position in a hierarchy. Because of this, the primary key can only be viewed; no objects can be created or deleted. The remaining fields can be edited.
-   - 
+
 2. CostBreakdownTemplate
    - The first object in this model serves as the standard template and is integral to the application's functionality. Therefore, it cannot be altered in any way.
+
+---
 
 ### URLs and Views
 
@@ -354,15 +347,11 @@ The admin page provides superusers with comprehensive access to manage all model
 - **`/logout`**: Logs out the user.
 - **`/register`**: Handles user registration.
 
----
-
 #### Project Management
 
 - **`/project`**: Allows project selection or creation.
 - **`/update_project`**: Updates project details.
 - **`/`**: Index page. Loads or sets the active project in the session.
-
----
 
 #### Cost Breakdown Management
 
@@ -374,14 +363,10 @@ The admin page provides superusers with comprehensive access to manage all model
 - **`/api/cost_composition_all`**: Provides paginated data for multiple cost compositions.
 - **`/api/get_project_resource`**: Fetches resource data with total quantities and cost.
 
----
-
 #### Budget Difference Income (BDI) Management
 
 - **`/update_bdi`**: Edits project-specific BDI rates.
 - **`/api/get_bdi`**: Fetches BDI data.
-
----
 
 #### Reports
 
