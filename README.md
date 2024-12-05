@@ -140,7 +140,10 @@ costplan/
 │       ├── register.html         # Registration page template
 │       ├── project.html          # Project selection page
 │       └── report.html           # PDF generation template
-└── manage.py                     # Command-line utility for Django
+├── manage.py                     # Command-line utility for Django
+├── sqlite3.db                    # Prepopulated SQLite Database
+├── README.md                     # This README file
+└── requirements.txt              # Requirements
 ```
 
 ## Front End
@@ -323,6 +326,26 @@ The data models are structured to represent key entities and relationships in th
 
 ---
 
+### Prepopulated SQLite Database
+To facilitate development and testing, the application uses a prepopulated SQLite database. This database is designed to ensure that key models have initial data available for the application to work without requiring a superuser to populate them manually. The prepopulated data plays an essential role in enabling the functionality of various features within the app, including the CostBreakdownSheet, Resource, and CostComposition models.
+
+Key Points:
+   - CostBreakdownSheet, Resource, and CostComposition models: These models are prepopulated with sample data, allowing users to interact with the app without needing to create objects manually. This ensures that the application is functional right from the start.
+   - BudgetDifferenceIncome (BDI): The database contains fixed data for the BDI model, which is crucial for the proper functioning of the app. This ensures that the necessary budget data is available for each project.
+   - CostBreakdownTemplate: The database includes the first object for the CostBreakdownTemplate, which serves as a standard template for all future cost breakdown sheets. This template is highly integrated into the app’s functionality and cannot be altered through the admin page.
+This prepopulated data helps ensure that the system runs smoothly and provides a ready-to-use environment for the development and testing of the application.
+
+### Admin Page
+
+The admin page provides superusers with comprehensive access to manage all models in the application. Each model is displayed in a table format, and many include a search bar for efficient navigation. Special restrictions are implemented for specific models to preserve critical structures or ensure proper functionality.
+
+#### Special Restrictions
+1. BudgetDifferenceIncome
+   - This model has a fixed structure where each object's primary key (id) determines its position in a hierarchy. Because of this, the primary key can only be viewed; no objects can be created or deleted. The remaining fields can be edited.
+   - 
+2. CostBreakdownTemplate
+   - The first object in this model serves as the standard template and is integral to the application's functionality. Therefore, it cannot be altered in any way.
+
 ### URLs and Views
 
 #### Authentication
@@ -388,17 +411,3 @@ The `utils.py` file provides a reusable function handle complex calculations and
 
   - `/api/cost_composition`: Retrieves a single cost composition.
   - `/api/cost_composition_all`: Provides paginated data for multiple cost compositions.
-
-### Admin Page
-
-The admin page provides superusers with comprehensive access to manage all models in the application. Each model is displayed in a table format, and many include a search bar for efficient navigation. Special restrictions are implemented for specific models to preserve critical structures or ensure proper functionality.
-
-#### Special Restrictions
-
-1. BudgetDifferenceIncome
-
-- This model has a fixed structure where each object's primary key (id) determines its position in a hierarchy. Because of this the primary key can only be seen and no objects can be created or deleted. The remaining fields can be edited.
-
-2. CostBreakdownTemplate
-
-- The first object in this model serves as the standard template and is integral to the application's functionality, thus it can't be altered in any way.
