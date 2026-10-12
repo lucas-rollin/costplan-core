@@ -1,4 +1,4 @@
-# Costplan: Budgeting Web Application
+# Costplan Core: Civil Construction Budgeting Web App
 
 ## Description
 
