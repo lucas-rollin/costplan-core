@@ -1,10 +1,10 @@
 # Costplan Core: Civil Construction Budgeting Web App
 
-![Costplan screenshot](costplan-core.png)
-
 Costplan is a web application for budgeting civil engineering projects. Create a project and it automatically generates a Cost Breakdown Sheet (CBS) pre-filled with standard activities, so you only adjust quantities.
 
 **Stack:** Django · SQLite · Vanilla JavaScript (SPA) · Sass · Bootstrap
+
+![Costplan screenshot](costplan-core.png)
 
 ## Overview
 
@@ -210,4 +210,4 @@ Superusers can manage every model through Django admin, with search on most. Two
 
 ## About
 
-Built as the capstone project for [Harvard University's CS50 Web](https://cs50.harvard.edu/web/), Web Programming with Python and JavaScript
+Built as the capstone project for [Harvard's CS50 Web](https://cs50.harvard.edu/web/), Web Programming with Python and JavaScript
