@@ -1,0 +1,2291 @@
+[
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.1",
+    "fields": {
+        "category": "1",
+        "description": "Mão de Obra Indireta (Administração, Financeiro, RH, Almoxarifado, Compras, etc...)",
+        "default_rate": "0.70"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.2",
+    "fields": {
+        "category": "1",
+        "description": "Alimentação Pessoal da Sede",
+        "default_rate": "0.50"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.3",
+    "fields": {
+        "category": "1",
+        "description": "Transporte de pessoal (Vale Transporte)",
+        "default_rate": "0.80"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.4",
+    "fields": {
+        "category": "1",
+        "description": "Medicina e Segurança do Trabalho",
+        "default_rate": "0.30"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.5",
+    "fields": {
+        "category": "1",
+        "description": "Seguros Acidentes Pessoais",
+        "default_rate": "0.40"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.6",
+    "fields": {
+        "category": "1",
+        "description": "Água, Energia, Telefone, Internet e Condomínio",
+        "default_rate": "0.70"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.7",
+    "fields": {
+        "category": "1",
+        "description": "Manutenção de veículos leves e pequenos equipamentos",
+        "default_rate": "1.10"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "1.8",
+    "fields": {
+        "category": "1",
+        "description": "Viagens de Supervisão, Inspeções de Campo e outras",
+        "default_rate": "0.50"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "2.1",
+    "fields": {
+        "category": "2",
+        "description": "Escritório Central",
+        "default_rate": "0.70"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "3.1",
+    "fields": {
+        "category": "3",
+        "description": "Riscos relacionados a sede",
+        "default_rate": "1.00"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "4.1",
+    "fields": {
+        "category": "4",
+        "description": "Escritório Central",
+        "default_rate": "1.50"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "5.1",
+    "fields": {
+        "category": "5",
+        "description": "Despesas com Compras / Comercialização",
+        "default_rate": "1.00"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "6.1",
+    "fields": {
+        "category": "6",
+        "description": "L - LUCRO",
+        "default_rate": "10.00"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.1",
+    "fields": {
+        "category": "7",
+        "description": "ISS",
+        "default_rate": "5.00"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.2",
+    "fields": {
+        "category": "7",
+        "description": "PIS",
+        "default_rate": "0.65"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.3",
+    "fields": {
+        "category": "7",
+        "description": "CONFINS",
+        "default_rate": "3.00"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.4",
+    "fields": {
+        "category": "7",
+        "description": "CSLL - Contribuição Social",
+        "default_rate": "2.88"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.5",
+    "fields": {
+        "category": "7",
+        "description": "IRRF",
+        "default_rate": "2.88"
+    }
+},
+{
+    "model": "budgeting.budgetdifferenceincome",
+    "pk": "7.6",
+    "fields": {
+        "category": "7",
+        "description": "SIMPLES",
+        "default_rate": "2.88"
+    }
+},
+{
+    "model": "budgeting.costbreakdowntemplate",
+    "pk": 1,
+    "fields": {
+        "name": "PPU-Padrão",
+        "description": "Template padrão. Valores foram retirados de composições do SINAPI SC 10/2024 Não Desonerado.",
+        "created_at": "2024-11-21T19:37:54.963Z",
+        "user": null
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "1",
+    "fields": {
+        "name": "Serviços Preliminares",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "1.1",
+    "fields": {
+        "name": "Escavação",
+        "unit": "m³",
+        "parent": "1",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "2",
+    "fields": {
+        "name": "Infraestrutura",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "2.1",
+    "fields": {
+        "name": "Fundação profunda",
+        "unit": "m",
+        "parent": "2",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "2.2",
+    "fields": {
+        "name": "Laje 0",
+        "unit": "m²",
+        "parent": "2",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "2.3",
+    "fields": {
+        "name": "Cortinas Armação",
+        "unit": "kg",
+        "parent": "2",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "2.4",
+    "fields": {
+        "name": "Cortinas Concretagem",
+        "unit": "m³",
+        "parent": "2",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "3",
+    "fields": {
+        "name": "Supraestrutura",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "3.1",
+    "fields": {
+        "name": "Fôrmas",
+        "unit": "m²",
+        "parent": "3",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "3.2",
+    "fields": {
+        "name": "Armação",
+        "unit": "kg",
+        "parent": "3",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "3.3",
+    "fields": {
+        "name": "Concretagem",
+        "unit": "m³",
+        "parent": "3",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "4",
+    "fields": {
+        "name": "Alvenaria e Instalações",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "4.1",
+    "fields": {
+        "name": "Alvenaria",
+        "unit": "m²",
+        "parent": "4",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "4.2",
+    "fields": {
+        "name": "Instalação Elétrica",
+        "unit": "m",
+        "parent": "4",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "4.3",
+    "fields": {
+        "name": "Instalação Hidráulica",
+        "unit": "m",
+        "parent": "4",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "4.4",
+    "fields": {
+        "name": "Climatização",
+        "unit": "un",
+        "parent": "4",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "5",
+    "fields": {
+        "name": "Argamassados",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "5.1",
+    "fields": {
+        "name": "Reboco",
+        "unit": "m²",
+        "parent": "5",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "5.2",
+    "fields": {
+        "name": "Contrapiso",
+        "unit": "m²",
+        "parent": "5",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6",
+    "fields": {
+        "name": "Acabamentos",
+        "unit": "",
+        "parent": null,
+        "is_leaf": false
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6.1",
+    "fields": {
+        "name": "Azulejo Parede",
+        "unit": "m²",
+        "parent": "6",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6.2",
+    "fields": {
+        "name": "Forro",
+        "unit": "m²",
+        "parent": "6",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6.3",
+    "fields": {
+        "name": "Piso Cerâmico",
+        "unit": "m²",
+        "parent": "6",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6.4",
+    "fields": {
+        "name": "Pintura",
+        "unit": "m²",
+        "parent": "6",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costbreakdownsheet",
+    "pk": "6.5",
+    "fields": {
+        "name": "Louças e Metais",
+        "unit": "un",
+        "parent": "6",
+        "is_leaf": true
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 1,
+    "fields": {
+        "item": "1.1",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.0310"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 2,
+    "fields": {
+        "item": "1.1",
+        "resource": 89031,
+        "template": 1,
+        "quantity": "0.0195"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 3,
+    "fields": {
+        "item": "1.1",
+        "resource": 89032,
+        "template": 1,
+        "quantity": "0.0115"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 4,
+    "fields": {
+        "item": "2.1",
+        "resource": 43360,
+        "template": 1,
+        "quantity": "0.2776"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 5,
+    "fields": {
+        "item": "2.1",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.3070"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 6,
+    "fields": {
+        "item": "2.1",
+        "resource": 90674,
+        "template": 1,
+        "quantity": "0.0296"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 7,
+    "fields": {
+        "item": "2.1",
+        "resource": 90675,
+        "template": 1,
+        "quantity": "0.0727"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 8,
+    "fields": {
+        "item": "2.1",
+        "resource": 90776,
+        "template": 1,
+        "quantity": "0.1023"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 9,
+    "fields": {
+        "item": "2.1",
+        "resource": 90778,
+        "template": 1,
+        "quantity": "0.0192"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 10,
+    "fields": {
+        "item": "2.1",
+        "resource": 95584,
+        "template": 1,
+        "quantity": "0.4916"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 11,
+    "fields": {
+        "item": "2.1",
+        "resource": 95579,
+        "template": 1,
+        "quantity": "3.3641"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 12,
+    "fields": {
+        "item": "2.1",
+        "resource": 97913,
+        "template": 1,
+        "quantity": "0.0773"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 13,
+    "fields": {
+        "item": "2.1",
+        "resource": 100973,
+        "template": 1,
+        "quantity": "0.2576"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 14,
+    "fields": {
+        "item": "2.2",
+        "resource": 96624,
+        "template": 1,
+        "quantity": "0.1000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 15,
+    "fields": {
+        "item": "2.2",
+        "resource": 97083,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 16,
+    "fields": {
+        "item": "2.2",
+        "resource": 97086,
+        "template": 1,
+        "quantity": "0.0800"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 17,
+    "fields": {
+        "item": "2.2",
+        "resource": 97087,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 18,
+    "fields": {
+        "item": "2.2",
+        "resource": 97089,
+        "template": 1,
+        "quantity": "3.6000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 19,
+    "fields": {
+        "item": "2.2",
+        "resource": 97096,
+        "template": 1,
+        "quantity": "0.1000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 20,
+    "fields": {
+        "item": "2.3",
+        "resource": 39017,
+        "template": 1,
+        "quantity": "0.3669"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 21,
+    "fields": {
+        "item": "2.3",
+        "resource": 43132,
+        "template": 1,
+        "quantity": "0.0250"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 22,
+    "fields": {
+        "item": "2.3",
+        "resource": 88245,
+        "template": 1,
+        "quantity": "0.0500"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 23,
+    "fields": {
+        "item": "2.3",
+        "resource": 92804,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 24,
+    "fields": {
+        "item": "2.4",
+        "resource": 1525,
+        "template": 1,
+        "quantity": "1.1030"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 25,
+    "fields": {
+        "item": "2.4",
+        "resource": 88309,
+        "template": 1,
+        "quantity": "1.0844"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 26,
+    "fields": {
+        "item": "2.4",
+        "resource": 90586,
+        "template": 1,
+        "quantity": "0.1220"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 27,
+    "fields": {
+        "item": "2.4",
+        "resource": 90587,
+        "template": 1,
+        "quantity": "0.1491"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 28,
+    "fields": {
+        "item": "3.1",
+        "resource": 1345,
+        "template": 1,
+        "quantity": "1.3360"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 29,
+    "fields": {
+        "item": "3.1",
+        "resource": 4491,
+        "template": 1,
+        "quantity": "2.3080"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 30,
+    "fields": {
+        "item": "3.1",
+        "resource": 4517,
+        "template": 1,
+        "quantity": "9.2370"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 31,
+    "fields": {
+        "item": "3.1",
+        "resource": 5068,
+        "template": 1,
+        "quantity": "0.2080"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 32,
+    "fields": {
+        "item": "3.1",
+        "resource": 88239,
+        "template": 1,
+        "quantity": "0.2500"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 33,
+    "fields": {
+        "item": "3.1",
+        "resource": 88269,
+        "template": 1,
+        "quantity": "1.1800"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 34,
+    "fields": {
+        "item": "3.1",
+        "resource": 91692,
+        "template": 1,
+        "quantity": "0.0630"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 35,
+    "fields": {
+        "item": "3.1",
+        "resource": 91693,
+        "template": 1,
+        "quantity": "0.2550"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 36,
+    "fields": {
+        "item": "3.2",
+        "resource": 39017,
+        "template": 1,
+        "quantity": "0.3570"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 37,
+    "fields": {
+        "item": "3.2",
+        "resource": 43132,
+        "template": 1,
+        "quantity": "0.0250"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 38,
+    "fields": {
+        "item": "3.2",
+        "resource": 88238,
+        "template": 1,
+        "quantity": "0.0042"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 39,
+    "fields": {
+        "item": "3.2",
+        "resource": 88245,
+        "template": 1,
+        "quantity": "0.0259"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 40,
+    "fields": {
+        "item": "3.2",
+        "resource": 92803,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 43,
+    "fields": {
+        "item": "3.3",
+        "resource": 88262,
+        "template": 1,
+        "quantity": "0.2650"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 44,
+    "fields": {
+        "item": "3.3",
+        "resource": 88309,
+        "template": 1,
+        "quantity": "1.2610"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 45,
+    "fields": {
+        "item": "3.3",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.9910"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 46,
+    "fields": {
+        "item": "3.3",
+        "resource": 90587,
+        "template": 1,
+        "quantity": "0.1350"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 47,
+    "fields": {
+        "item": "3.3",
+        "resource": 90586,
+        "template": 1,
+        "quantity": "0.1300"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 48,
+    "fields": {
+        "item": "4.1",
+        "resource": 34547,
+        "template": 1,
+        "quantity": "0.4200"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 49,
+    "fields": {
+        "item": "4.1",
+        "resource": 37395,
+        "template": 1,
+        "quantity": "0.0100"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 50,
+    "fields": {
+        "item": "4.1",
+        "resource": 37593,
+        "template": 1,
+        "quantity": "13.6000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 51,
+    "fields": {
+        "item": "4.1",
+        "resource": 87369,
+        "template": 1,
+        "quantity": "0.0118"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 52,
+    "fields": {
+        "item": "4.1",
+        "resource": 88309,
+        "template": 1,
+        "quantity": "0.8600"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 53,
+    "fields": {
+        "item": "4.1",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.4300"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 54,
+    "fields": {
+        "item": "4.2",
+        "resource": 995,
+        "template": 1,
+        "quantity": "1.0401"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 57,
+    "fields": {
+        "item": "4.2",
+        "resource": 88264,
+        "template": 1,
+        "quantity": "0.7453"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 58,
+    "fields": {
+        "item": "4.3",
+        "resource": 20068,
+        "template": 1,
+        "quantity": "1.0353"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 59,
+    "fields": {
+        "item": "4.3",
+        "resource": 38383,
+        "template": 1,
+        "quantity": "0.0105"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 60,
+    "fields": {
+        "item": "4.3",
+        "resource": 88248,
+        "template": 1,
+        "quantity": "0.1897"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 61,
+    "fields": {
+        "item": "4.3",
+        "resource": 88267,
+        "template": 1,
+        "quantity": "0.1897"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 65,
+    "fields": {
+        "item": "4.4",
+        "resource": 1570,
+        "template": 1,
+        "quantity": "10.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 66,
+    "fields": {
+        "item": "4.4",
+        "resource": 7568,
+        "template": 1,
+        "quantity": "9.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 67,
+    "fields": {
+        "item": "4.4",
+        "resource": 11976,
+        "template": 1,
+        "quantity": "6.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 68,
+    "fields": {
+        "item": "4.4",
+        "resource": 13246,
+        "template": 1,
+        "quantity": "4.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 69,
+    "fields": {
+        "item": "4.4",
+        "resource": 37591,
+        "template": 1,
+        "quantity": "2.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 70,
+    "fields": {
+        "item": "4.4",
+        "resource": 42424,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 71,
+    "fields": {
+        "item": "4.4",
+        "resource": 88243,
+        "template": 1,
+        "quantity": "2.3334"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 72,
+    "fields": {
+        "item": "4.4",
+        "resource": 100308,
+        "template": 1,
+        "quantity": "2.3334"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 73,
+    "fields": {
+        "item": "5.1",
+        "resource": 87369,
+        "template": 1,
+        "quantity": "0.0304"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 74,
+    "fields": {
+        "item": "5.1",
+        "resource": 88309,
+        "template": 1,
+        "quantity": "0.5514"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 75,
+    "fields": {
+        "item": "5.1",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.2757"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 76,
+    "fields": {
+        "item": "5.2",
+        "resource": 370,
+        "template": 1,
+        "quantity": "1.2700"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 77,
+    "fields": {
+        "item": "5.2",
+        "resource": 1379,
+        "template": 1,
+        "quantity": "573.6100"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 78,
+    "fields": {
+        "item": "5.2",
+        "resource": 88377,
+        "template": 1,
+        "quantity": "4.4200"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 79,
+    "fields": {
+        "item": "5.2",
+        "resource": 88830,
+        "template": 1,
+        "quantity": "1.0300"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 80,
+    "fields": {
+        "item": "5.2",
+        "resource": 88831,
+        "template": 1,
+        "quantity": "3.3900"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 81,
+    "fields": {
+        "item": "6.1",
+        "resource": 536,
+        "template": 1,
+        "quantity": "1.0725"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 82,
+    "fields": {
+        "item": "6.1",
+        "resource": 1381,
+        "template": 1,
+        "quantity": "4.9100"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 83,
+    "fields": {
+        "item": "6.1",
+        "resource": 34357,
+        "template": 1,
+        "quantity": "0.2900"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 84,
+    "fields": {
+        "item": "6.1",
+        "resource": 88256,
+        "template": 1,
+        "quantity": "0.6488"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 85,
+    "fields": {
+        "item": "6.1",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.3004"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 86,
+    "fields": {
+        "item": "6.2",
+        "resource": 345,
+        "template": 1,
+        "quantity": "0.0217"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 87,
+    "fields": {
+        "item": "6.2",
+        "resource": 3315,
+        "template": 1,
+        "quantity": "1.8127"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 88,
+    "fields": {
+        "item": "6.2",
+        "resource": 4812,
+        "template": 1,
+        "quantity": "1.0414"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 89,
+    "fields": {
+        "item": "6.2",
+        "resource": 20250,
+        "template": 1,
+        "quantity": "0.0078"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 90,
+    "fields": {
+        "item": "6.2",
+        "resource": 40547,
+        "template": 1,
+        "quantity": "0.0293"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 91,
+    "fields": {
+        "item": "6.2",
+        "resource": 88269,
+        "template": 1,
+        "quantity": "0.9123"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 92,
+    "fields": {
+        "item": "6.2",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.5244"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 93,
+    "fields": {
+        "item": "6.3",
+        "resource": 1287,
+        "template": 1,
+        "quantity": "1.0571"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 94,
+    "fields": {
+        "item": "6.3",
+        "resource": 1381,
+        "template": 1,
+        "quantity": "9.1325"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 95,
+    "fields": {
+        "item": "6.3",
+        "resource": 34357,
+        "template": 1,
+        "quantity": "0.2410"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 96,
+    "fields": {
+        "item": "6.3",
+        "resource": 88256,
+        "template": 1,
+        "quantity": "0.2411"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 97,
+    "fields": {
+        "item": "6.3",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.1290"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 98,
+    "fields": {
+        "item": "6.4",
+        "resource": 7356,
+        "template": 1,
+        "quantity": "0.2132"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 99,
+    "fields": {
+        "item": "6.4",
+        "resource": 88310,
+        "template": 1,
+        "quantity": "0.2545"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 100,
+    "fields": {
+        "item": "6.4",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.0416"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 104,
+    "fields": {
+        "item": "6.5",
+        "resource": 37329,
+        "template": 1,
+        "quantity": "0.0881"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 105,
+    "fields": {
+        "item": "6.5",
+        "resource": 88267,
+        "template": 1,
+        "quantity": "0.7791"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 106,
+    "fields": {
+        "item": "6.5",
+        "resource": 88316,
+        "template": 1,
+        "quantity": "0.4384"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 210,
+    "fields": {
+        "item": "6.5",
+        "resource": 4351,
+        "template": 1,
+        "quantity": "6.0000"
+    }
+},
+{
+    "model": "budgeting.costcomposition",
+    "pk": 211,
+    "fields": {
+        "item": "6.5",
+        "resource": 10426,
+        "template": 1,
+        "quantity": "1.0000"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 17,
+    "fields": {
+        "symbol": "CHP",
+        "name": "Custo Horário Produtivo"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 18,
+    "fields": {
+        "symbol": "CHI",
+        "name": "Custo Horário Improdutivo"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 19,
+    "fields": {
+        "symbol": "UN",
+        "name": "Unidade"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 20,
+    "fields": {
+        "symbol": "H",
+        "name": "Hora"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 21,
+    "fields": {
+        "symbol": "KG",
+        "name": "Quilograma"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 22,
+    "fields": {
+        "symbol": "M",
+        "name": "Metro"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 23,
+    "fields": {
+        "symbol": "M3",
+        "name": "Metro cúbico"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 24,
+    "fields": {
+        "symbol": "M2",
+        "name": "Metro quadrado"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 25,
+    "fields": {
+        "symbol": "L",
+        "name": "Litro"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 26,
+    "fields": {
+        "symbol": "KWH",
+        "name": "Kilo Watt Hora"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 27,
+    "fields": {
+        "symbol": "CENTO",
+        "name": "Cento"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 28,
+    "fields": {
+        "symbol": "PAR",
+        "name": "Par"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 29,
+    "fields": {
+        "symbol": "MIL",
+        "name": "Mil"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 30,
+    "fields": {
+        "symbol": "CJ",
+        "name": "Conjunto"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 31,
+    "fields": {
+        "symbol": "310ML",
+        "name": "310 mililitros"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 32,
+    "fields": {
+        "symbol": "UNXMES",
+        "name": "Unidade vezes mês"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 33,
+    "fields": {
+        "symbol": "MES",
+        "name": "Mês"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 34,
+    "fields": {
+        "symbol": "M3XKM",
+        "name": "Metro cúbico vezes kilometro"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 35,
+    "fields": {
+        "symbol": "JG",
+        "name": "Jogo"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 36,
+    "fields": {
+        "symbol": "MXMES",
+        "name": "Metro vezes mês"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 37,
+    "fields": {
+        "symbol": "T",
+        "name": "T"
+    }
+},
+{
+    "model": "budgeting.measurementunit",
+    "pk": 38,
+    "fields": {
+        "symbol": "SC25KG",
+        "name": "Saco de 25 kilogramas"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 345,
+    "fields": {
+        "name": "ARAME GALVANIZADO 18 BWG, D = 1,24MM (0,009 KG/M)",
+        "unit": 19,
+        "cost": "35.23"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 370,
+    "fields": {
+        "name": "AREIA MEDIA - POSTO JAZIDA/FORNECEDOR (RETIRADO NA JAZIDA, SEM TRANSPORTE)",
+        "unit": 23,
+        "cost": "135.00"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 536,
+    "fields": {
+        "name": "REVESTIMENTO EM CERAMICA ESMALTADA, PEI MENOR OU IGUAL A 3, FORMATO MENOR OU IGUAL A 2025 CM2",
+        "unit": 24,
+        "cost": "27.56"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 995,
+    "fields": {
+        "name": "CABO DE COBRE, FLEXIVEL, CLASSE 4 OU 5, ISOLACAO EM PVC/A, ANTICHAMA BWF-B, COBERTURA PVC-ST1, ANTICHAMA BWF-B, 1 CONDUTOR, 0,6/1 KV, SECAO NOMINAL 16 MM2",
+        "unit": 22,
+        "cost": "16.68"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1287,
+    "fields": {
+        "name": "PISO EM CERAMICA ESMALTADA, COR LISA, PEI MAIOR OU IGUAL A 4, FORMATO MENOR OU IGUAL A 2025 CM2",
+        "unit": 24,
+        "cost": "29.63"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1345,
+    "fields": {
+        "name": "CHAPA/PAINEL DE MADEIRA COMPENSADA PLASTIFICADA (MADEIRITE PLASTIFICADO) PARA FORMA DE CONCRETO, DE 2200 X 1100 MM, E = *17* MM",
+        "unit": 24,
+        "cost": "90.07"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1379,
+    "fields": {
+        "name": "CIMENTO PORTLAND COMPOSTO CP II-32",
+        "unit": 21,
+        "cost": "0.77"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1381,
+    "fields": {
+        "name": "ARGAMASSA COLANTE AC I PARA CERAMICAS",
+        "unit": 21,
+        "cost": "0.70"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1525,
+    "fields": {
+        "name": "CONCRETO USINADO BOMBEAVEL, CLASSE DE RESISTENCIA C30, BRITA 0 E 1, SLUMP = 100 +/- 20 MM, COM BOMBEAMENTO (DISPONIBILIZACAO DE BOMBA), SEM O LANCAMENTO (NBR 8953)",
+        "unit": 23,
+        "cost": "597.03"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 1570,
+    "fields": {
+        "name": "TERMINAL A COMPRESSAO EM COBRE ESTANHADO PARA CABO 2,5 MM2, 1 FURO E 1 COMPRESSAO, PARA PARAFUSO DE FIXACAO M5",
+        "unit": 19,
+        "cost": "0.99"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 2692,
+    "fields": {
+        "name": "DESMOLDANTE PROTETOR PARA FORMAS DE MADEIRA, DE BASE OLEOSA EMULSIONADA EM AGUA",
+        "unit": 25,
+        "cost": "6.34"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 3315,
+    "fields": {
+        "name": "GESSO EM PO PARA REVESTIMENTOS/MOLDURAS/SANCAS E USO GERAL",
+        "unit": 21,
+        "cost": "0.88"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 4351,
+    "fields": {
+        "name": "PARAFUSO NIQUELADO 3 1/2\" COM ACABAMENTO CROMADO PARA FIXAR PECA SANITARIA, INCLUI PORCA CEGA, ARRUELA E BUCHA DE NYLON TAMANHO S-8",
+        "unit": 19,
+        "cost": "22.34"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 4491,
+    "fields": {
+        "name": "PONTALETE *7,5 X 7,5* CM EM PINUS, MISTA OU EQUIVALENTE DA REGIAO - BRUTA",
+        "unit": 22,
+        "cost": "7.71"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 4517,
+    "fields": {
+        "name": "SARRAFO *2,5 X 7,5* CM EM PINUS, MISTA OU EQUIVALENTE DA REGIAO - BRUTA",
+        "unit": 22,
+        "cost": "2.70"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 4812,
+    "fields": {
+        "name": "PLACA DE GESSO PARA FORRO, *60 X 60* CM, ESPESSURA DE 12 MM (SEM COLOCACAO)",
+        "unit": 24,
+        "cost": "12.27"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 5068,
+    "fields": {
+        "name": "PREGO DE ACO POLIDO COM CABECA 17 X 21 (2 X 11)",
+        "unit": 21,
+        "cost": "15.92"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 7356,
+    "fields": {
+        "name": "TINTA LATEX ACRILICA PREMIUM, COR BRANCO FOSCO",
+        "unit": 25,
+        "cost": "26.49"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 7568,
+    "fields": {
+        "name": "BUCHA DE NYLON SEM ABA S10, COM PARAFUSO DE 6,10 X 65 MM EM ACO ZINCADO COM ROSCA SOBERBA, CABECA CHATA E FENDA PHILLIPS",
+        "unit": 19,
+        "cost": "0.61"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 10426,
+    "fields": {
+        "name": "LAVATORIO DE LOUCA BRANCA, COM COLUNA, DIMENSOES *54 X 44* CM (L X C)",
+        "unit": 19,
+        "cost": "173.08"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 11976,
+    "fields": {
+        "name": "CHUMBADOR DE ACO ZINCADO, DIAMETRO 1/4\" COM PARAFUSO 1/4\" X 40 MM",
+        "unit": 19,
+        "cost": "1.61"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 13246,
+    "fields": {
+        "name": "PARAFUSO DE ACO ZINCADO, SEXTAVADO, COM ROSCA INTEIRA, DIAMETRO 5/16\", COMPRIMENTO 3/4\", COM PORCA E ARRUELA LISA LEVE",
+        "unit": 19,
+        "cost": "0.60"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 20068,
+    "fields": {
+        "name": "TUBO PVC, SERIE R, DN 50 MM, PARA ESGOTO OU AGUAS PLUVIAIS PREDIAL (NBR 5688)",
+        "unit": 22,
+        "cost": "11.28"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 20250,
+    "fields": {
+        "name": "SISAL EM FIBRA / ESTOPA SISAL PARA GESSO",
+        "unit": 21,
+        "cost": "25.11"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 34357,
+    "fields": {
+        "name": "REJUNTE CIMENTICIO, QUALQUER COR",
+        "unit": 21,
+        "cost": "4.11"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 34547,
+    "fields": {
+        "name": "TELA DE ACO SOLDADA GALVANIZADA/ZINCADA PARA ALVENARIA, FIO D = *1,20 A 1,70* MM, MALHA 15 X 15 MM, (C X L) *50 X 12* CM",
+        "unit": 22,
+        "cost": "4.15"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 37329,
+    "fields": {
+        "name": "REJUNTE EPOXI, QUALQUER COR",
+        "unit": 21,
+        "cost": "86.57"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 37395,
+    "fields": {
+        "name": "PINO DE ACO COM FURO, HASTE = 27 MM (ACAO DIRETA)",
+        "unit": 27,
+        "cost": "43.84"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 37591,
+    "fields": {
+        "name": "SUPORTE MAO-FRANCESA EM ACO, ABAS IGUAIS 40 CM, CAPACIDADE MINIMA 70 KG, BRANCO",
+        "unit": 19,
+        "cost": "20.27"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 37593,
+    "fields": {
+        "name": "BLOCO CERAMICO / TIJOLO VAZADO PARA ALVENARIA DE VEDACAO, FUROS NA VERTICAL DE 14 X 19 X 39 CM (L X A X C)",
+        "unit": 19,
+        "cost": "3.38"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 38383,
+    "fields": {
+        "name": "LIXA D'AGUA EM FOLHA, GRAO 100",
+        "unit": 19,
+        "cost": "2.49"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 39017,
+    "fields": {
+        "name": "ESPACADOR / DISTANCIADOR CIRCULAR COM ENTRADA LATERAL, EM PLASTICO, PARA VERGALHAO *4,2 A 12,5* MM, COBRIMENTO 20 MM",
+        "unit": 19,
+        "cost": "0.23"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 40304,
+    "fields": {
+        "name": "PREGO DE ACO POLIDO COM CABECA DUPLA 17 X 27 (2 1/2 X 11)",
+        "unit": 21,
+        "cost": "19.65"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 40547,
+    "fields": {
+        "name": "PARAFUSO ZINCADO, AUTOBROCANTE, FLANGEADO, 4,2 MM X 19 MM",
+        "unit": 27,
+        "cost": "36.61"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 42424,
+    "fields": {
+        "name": "AR CONDICIONADO SPLIT INVERTER, HI-WALL (PAREDE), 9000 BTU/H, CICLO FRIO, 60HZ, CLASSIFICACAO A (SELO PROCEL), GAS HFC, CONTROLE S/FIO",
+        "unit": 19,
+        "cost": "2345.62"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 43132,
+    "fields": {
+        "name": "ARAME RECOZIDO 16 BWG, D = 1,65 MM (0,016 KG/M) OU 18 BWG, D = 1,25 MM (0,01 KG/M)",
+        "unit": 21,
+        "cost": "24.70"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 43360,
+    "fields": {
+        "name": "CONCRETO USINADO BOMBEAVEL, CLASSE DE RESISTENCIA C30, COM BRITA 0 E 1, SLUMP = 220 +/- 30 MM, EXCLUI SERVICO DE BOMBEAMENTO (NBR 8953)",
+        "unit": 23,
+        "cost": "645.20"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 87369,
+    "fields": {
+        "name": "ARGAMASSA TRAÇO 1:2:8 (EM VOLUME DE CIMENTO, CAL E AREIA MÉDIA ÚMIDA) PARA EMBOÇO/MASSA ÚNICA/ASSENTAMENTO DE ALVENARIA DE VEDAÇÃO, PREPARO MANUAL. AF_08/2019",
+        "unit": 23,
+        "cost": "726.89"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88238,
+    "fields": {
+        "name": "AJUDANTE DE ARMADOR COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "25.38"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88239,
+    "fields": {
+        "name": "AJUDANTE DE CARPINTEIRO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "25.32"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88243,
+    "fields": {
+        "name": "AJUDANTE ESPECIALIZADO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "24.79"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88245,
+    "fields": {
+        "name": "ARMADOR COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "32.06"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88248,
+    "fields": {
+        "name": "AUXILIAR DE ENCANADOR OU BOMBEIRO HIDRÁULICO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "24.84"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88256,
+    "fields": {
+        "name": "AZULEJISTA OU LADRILHISTA COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "32.16"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88262,
+    "fields": {
+        "name": "CARPINTEIRO DE FORMAS COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "32.96"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88264,
+    "fields": {
+        "name": "ELETRICISTA COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "40.02"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88267,
+    "fields": {
+        "name": "ENCANADOR OU BOMBEIRO HIDRÁULICO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "32.53"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88269,
+    "fields": {
+        "name": "CARGA, MANOBRA E DESCARGA DE SOLOS E MATERIAIS GRANULARES EM CAMINHÃO BASCULANTE 6 M³ - CARGA COM PÁ CARREGADEIRA (CAÇAMBA DE 1,7 A 2,8 M³ / 128 HP) E DESCARGA LIVRE (UNIDADE: M3). AF_07/2020",
+        "unit": 23,
+        "cost": "9.31"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88309,
+    "fields": {
+        "name": "PEDREIRO COM ENCARGOS COMPLEMENTARES",
+        "unit": 17,
+        "cost": "32.37"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88310,
+    "fields": {
+        "name": "PINTOR COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "33.65"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88316,
+    "fields": {
+        "name": "SERVENTE COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "23.62"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88377,
+    "fields": {
+        "name": "OPERADOR DE BETONEIRA ESTACIONÁRIA/MISTURADOR COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "29.04"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88830,
+    "fields": {
+        "name": "BETONEIRA CAPACIDADE NOMINAL DE 400 L, CAPACIDADE DE MISTURA 280 L, MOTOR ELÉTRICO TRIFÁSICO POTÊNCIA DE 2 CV, SEM CARREGADOR - CHP DIURNO. AF_05/2023",
+        "unit": 17,
+        "cost": "1.71"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 88831,
+    "fields": {
+        "name": "BETONEIRA CAPACIDADE NOMINAL DE 400 L, CAPACIDADE DE MISTURA 280 L, MOTOR ELÉTRICO TRIFÁSICO POTÊNCIA DE 2 CV, SEM CARREGADOR - CHI DIURNO. AF_05/2023",
+        "unit": 18,
+        "cost": "0.40"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 89031,
+    "fields": {
+        "name": "TRATOR DE ESTEIRAS, POTÊNCIA 100 HP, PESO OPERACIONAL 9,4 T, COM LÂMINA 2,19 M3 - CHI DIURNO. AF_06/2014",
+        "unit": 18,
+        "cost": "79.75"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 89032,
+    "fields": {
+        "name": "TRATOR DE ESTEIRAS, POTÊNCIA 100 HP, PESO OPERACIONAL 9,4 T, COM LÂMINA 2,19 M3 - CHP DIURNO. AF_06/2014",
+        "unit": 17,
+        "cost": "201.49"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90586,
+    "fields": {
+        "name": "VIBRADOR DE IMERSÃO, DIÂMETRO DE PONTEIRA 45MM, MOTOR ELÉTRICO TRIFÁSICO POTÊNCIA DE 2 CV - CHP DIURNO. AF_06/2015",
+        "unit": 17,
+        "cost": "1.25"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90587,
+    "fields": {
+        "name": "VIBRADOR DE IMERSÃO, DIÂMETRO DE PONTEIRA 45MM, MOTOR ELÉTRICO TRIFÁSICO POTÊNCIA DE 2 CV - CHI DIURNO. AF_06/2015",
+        "unit": 18,
+        "cost": "0.53"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90674,
+    "fields": {
+        "name": "PERFURATRIZ COM TORRE METÁLICA PARA EXECUÇÃO DE ESTACA HÉLICE CONTÍNUA, PROFUNDIDADE MÁXIMA DE 30 M, DIÂMETRO MÁXIMO DE 800 MM, POTÊNCIA INSTALADA DE 268 HP, MESA ROTATIVA COM TORQUE MÁXIMO DE 170 KNM",
+        "unit": 17,
+        "cost": "806.62"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90675,
+    "fields": {
+        "name": "PERFURATRIZ COM TORRE METÁLICA PARA EXECUÇÃO DE ESTACA HÉLICE CONTÍNUA, PROFUNDIDADE MÁXIMA DE 30 M, DIÂMETRO MÁXIMO DE 800 MM, POTÊNCIA INSTALADA DE 268 HP, MESA ROTATIVA COM TORQUE MÁXIMO DE 170 KNM",
+        "unit": 18,
+        "cost": "362.13"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90776,
+    "fields": {
+        "name": "ENCARREGADO GERAL COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "39.55"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 90778,
+    "fields": {
+        "name": "ENGENHEIRO CIVIL DE OBRA PLENO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "132.52"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 91692,
+    "fields": {
+        "name": "SERRA CIRCULAR DE BANCADA COM MOTOR ELÉTRICO POTÊNCIA DE 5HP, COM COIFA PARA DISCO 10\" - CHP DIURNO. AF_08/2015",
+        "unit": 17,
+        "cost": "32.60"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 91693,
+    "fields": {
+        "name": "SERRA CIRCULAR DE BANCADA COM MOTOR ELÉTRICO POTÊNCIA DE 5HP, COM COIFA PARA DISCO 10\" - CHI DIURNO. AF_08/2015",
+        "unit": 18,
+        "cost": "31.50"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 92269,
+    "fields": {
+        "name": "FABRICAÇÃO DE FÔRMA PARA PILARES E ESTRUTURAS SIMILARES, EM MADEIRA SERRADA, E=25 MM. AF_09/2020",
+        "unit": 24,
+        "cost": "128.41"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 92803,
+    "fields": {
+        "name": "CORTE E DOBRA DE AÇO CA-50, DIÂMETRO DE 10,0 MM. AF_06/2022",
+        "unit": 21,
+        "cost": "9.68"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 92804,
+    "fields": {
+        "name": "CORTE E DOBRA DE AÇO CA-50, DIÂMETRO DE 12,5 MM. AF_06/2022",
+        "unit": 21,
+        "cost": "8.29"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 95579,
+    "fields": {
+        "name": "MONTAGEM DE ARMADURA DE ESTACAS, DIÂMETRO = 16,0 MM. AF_09/2021_PS",
+        "unit": 21,
+        "cost": "9.11"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 95584,
+    "fields": {
+        "name": "MONTAGEM DE ARMADURA TRANSVERSAL DE ESTACAS DE SEÇÃO CIRCULAR, DIÂMETRO = 6,30 MM. AF_09/2021_PS",
+        "unit": 21,
+        "cost": "15.20"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 96624,
+    "fields": {
+        "name": "LASTRO COM MATERIAL GRANULAR (PEDRA BRITADA N.2), APLICADO EM PISOS OU LAJES SOBRE SOLO, ESPESSURA DE *10 CM*. AF_01/2024",
+        "unit": 23,
+        "cost": "200.30"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97083,
+    "fields": {
+        "name": "COMPACTAÇÃO MECÂNICA DE SOLO PARA EXECUÇÃO DE RADIER, PISO DE CONCRETO OU LAJE SOBRE SOLO, COM COMPACTADOR DE SOLOS A PERCUSSÃO. AF_09/2021",
+        "unit": 24,
+        "cost": "3.74"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97086,
+    "fields": {
+        "name": "FABRICAÇÃO, MONTAGEM E DESMONTAGEM DE FORMA PARA RADIER, PISO DE CONCRETO OU LAJE SOBRE SOLO, EM MADEIRA SERRADA, 4 UTILIZAÇÕES. AF_09/2021",
+        "unit": 24,
+        "cost": "177.41"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97087,
+    "fields": {
+        "name": "CAMADA SEPARADORA PARA EXECUÇÃO DE RADIER, PISO DE CONCRETO OU LAJE SOBRE SOLO, EM LONA PLÁSTICA. AF_09/2021",
+        "unit": 24,
+        "cost": "3.47"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97089,
+    "fields": {
+        "name": "ARMAÇÃO PARA EXECUÇÃO DE RADIER, PISO DE CONCRETO OU LAJE SOBRE SOLO, COM USO DE TELA Q-113. AF_09/2021",
+        "unit": 21,
+        "cost": "16.42"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97096,
+    "fields": {
+        "name": "CONCRETAGEM DE RADIER, PISO DE CONCRETO OU LAJE SOBRE SOLO, FCK 30 MPA - LANÇAMENTO, ADENSAMENTO E ACABAMENTO. AF_09/2021",
+        "unit": 23,
+        "cost": "655.93"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 97913,
+    "fields": {
+        "name": "TRANSPORTE COM CAMINHÃO BASCULANTE DE 6 M³, EM VIA URBANA EM REVESTIMENTO PRIMÁRIO (UNIDADE: M3XKM). AF_07/2020",
+        "unit": 34,
+        "cost": "3.30"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 100308,
+    "fields": {
+        "name": "MECÂNICO DE REFRIGERAÇÃO COM ENCARGOS COMPLEMENTARES",
+        "unit": 20,
+        "cost": "39.55"
+    }
+},
+{
+    "model": "budgeting.resource",
+    "pk": 100973,
+    "fields": {
+        "name": "CARGA, MANOBRA E DESCARGA DE SOLOS E MATERIAIS GRANULARES EM CAMINHÃO BASCULANTE 6 M³ - CARGA COM PÁ CARREGADEIRA (CAÇAMBA DE 1,7 A 2,8 M³ / 128 HP) E DESCARGA LIVRE (UNIDADE: M3). AF_07/2020",
+        "unit": 23,
+        "cost": "9.31"
+    }
+}
+]

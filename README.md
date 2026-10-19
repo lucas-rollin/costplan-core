@@ -49,17 +49,26 @@ Unlike generic budgeting tools, Costplan specializes in one project type. Standa
 **Prerequisites:** Python 3.8+ and pip.
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/lucas-rollin/costplan-core.git
 cd costplan-core
 
+# 2. Create and activate a virtual environment
 python3 -m venv venv
 source venv/bin/activate    # On Windows: venv\Scripts\activate
 
+# 3. Install dependencies
 pip install -r requirements.txt
+
+# 4. Set up the database and load seed data
+python manage.py migrate
+python manage.py loaddata seed_data.json
+
+# 5. Run the development server
 python manage.py runserver
 ```
 
-Then open `http://127.0.0.1:8000` and:
+Then open `http://127.0.0.1:8000` in your browser and:
 
 1. Register or log in.
 2. Create a project at `/project` and open it.
@@ -79,6 +88,7 @@ Then visit `http://127.0.0.1:8000/admin` to manage models, including resource pr
 costplan/
 ├── costplan/                     # Django project settings
 ├── budgeting/                    # Core application
+│   ├── fixtures/seed_data.sjon   # Sample wet construction dataset
 │   ├── admin.py                  # Admin site configuration
 │   ├── models.py                 # Database models
 │   ├── urls.py                   # App URL routing
@@ -102,7 +112,7 @@ costplan/
 │   │           └── resource.js
 │   └── templates/                # HTML templates
 ├── manage.py
-├── sqlite3.db                    # Prepopulated SQLite database
+├── requirements.in               # Direct dependencies
 ├── requirements.txt
 └── README.md
 ```

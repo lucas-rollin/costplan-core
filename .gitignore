@@ -4,3 +4,4 @@ venv/
 *.py[cod]
 *.tmp
 *.tmp.*
+*.sqlite3
